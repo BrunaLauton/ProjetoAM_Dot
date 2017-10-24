@@ -299,7 +299,7 @@ public class FormLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Os campos precisam ser preenchidos!");
         } else {
 
-            Login usuario = new Login(login, senha);
+            Login usuario = new Login(0, login, senha, "S");
             LoginDAO dao = new LoginDAO();
 
             if (dao.logarSistema(usuario)) {

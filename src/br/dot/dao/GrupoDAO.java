@@ -6,7 +6,7 @@
 package br.dot.dao;
 
 import br.dot.modelo.Grupo;
-import br.fiap.conexao.Conexao;
+import br.dot.conexao.Conexao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
