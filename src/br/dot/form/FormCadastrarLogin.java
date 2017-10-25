@@ -310,8 +310,6 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
             limpar();
             atualizarTabela();
         }
-             
-
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

@@ -60,7 +60,7 @@ public class LoginDAO {
     
     public boolean cadastrarLogin(Login login){
         try {
-            sql = "insert into LOGIN values (id_generator.nextval,?, ?)";
+            sql = "insert into LOGIN values (id_generator.nextval,?,?)";
             p = conexao.prepareStatement(sql);
             p.setString(1, login.getUsuario());
             p.setString(2, login.getSenha());
@@ -77,7 +77,7 @@ public class LoginDAO {
        
         List<Login> lista = null;
        
-        sql = "select * from LOGIN";
+        sql = "select idLogin, usuario, senha from LOGIN";
         try {
             p = conexao.prepareStatement(sql);
             rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
@@ -96,7 +96,7 @@ public class LoginDAO {
         int idUsuario;
         
         while(rs.next()) {
-            idUsuario = Integer.parseInt(rs.getString("idusuario"));
+            idUsuario = Integer.parseInt(rs.getString("idLogin"));
             usuario = rs.getString("usuario");
             senha = rs.getString("senha");
           
