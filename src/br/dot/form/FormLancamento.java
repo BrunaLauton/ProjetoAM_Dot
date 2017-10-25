@@ -141,6 +141,11 @@ public class FormLancamento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         PnlLancamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         PnlLancamento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -265,6 +270,11 @@ public class FormLancamento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableLancamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableLancamentoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableLancamento);
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -343,31 +353,34 @@ public class FormLancamento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addComponent(jLabel12))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(PnlLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(btnSalvar)
-                .addGap(78, 78, 78)
-                .addComponent(btnAlterar)
-                .addGap(79, 79, 79)
-                .addComponent(btnPesquisar)
-                .addGap(79, 79, 79)
-                .addComponent(btnExcluir))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 762, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(486, 486, 486)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLimpar)
                 .addGap(55, 55, 55)
                 .addComponent(btnVoltar)
                 .addGap(56, 56, 56)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(329, 329, 329)
+                        .addComponent(jLabel12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(btnSalvar)
+                        .addGap(78, 78, 78)
+                        .addComponent(btnAlterar)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnPesquisar)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnExcluir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(PnlLancamento, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,12 +397,13 @@ public class FormLancamento extends javax.swing.JFrame {
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -483,6 +497,30 @@ public class FormLancamento extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null, "Todos os campos prescisam ser preenchidos!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void tableLancamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLancamentoMouseClicked
+        int linha = tableLancamento.getSelectedRow();
+        if (linha != -1) {
+
+            txtAltitudeMax.setText(matriz[linha][1]);
+            txtVelocidadeMax.setText(matriz[linha][2]);
+            txtTempoPropulsao.setText(matriz[linha][3]);
+            txtPicoAceleracao.setText(matriz[linha][4]);
+            txtAceleracaoMedia.setText(matriz[linha][5]);
+            txtTempoQueda.setText(matriz[linha][6]);
+            txtTempoEjecao.setText(matriz[linha][7]);
+            txtAltitudeEjecao.setText(matriz[linha][8]);
+            txtTaxaDescida.setText(matriz[linha][9]);
+            txtDuracaoVoo.setText(matriz[linha][10]);
+            txtDistanciaAlvo.setText(matriz[linha][11]);
+            txtData.setText(matriz[linha][12]);
+               
+        }
+    }//GEN-LAST:event_tableLancamentoMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        atualizarTabela();
+    }//GEN-LAST:event_formWindowOpened
  
     private void limpar() {
        txtAceleracaoMedia.setText("");
@@ -496,7 +534,8 @@ public class FormLancamento extends javax.swing.JFrame {
        txtTempoPropulsao.setText("");
        txtTempoQueda.setText("");
        txtVelocidadeMax.setText("");
-       
+       txtData.setText("");
+              
     }
     /**
      * @param args the command line arguments

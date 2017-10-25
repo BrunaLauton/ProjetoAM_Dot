@@ -35,7 +35,7 @@ public class LancamentoDAO {
        
         List<Lancamento> lista = null;
        
-        sql = "select idLancamento, altitudeMax, velocidadeMax, tempoPropulsao,picoAceleracao, tempoQueda, tempoEjecao, altitudeEjecao, taxaDescida, duracaoVoo, distanciaAlvo, data from LANCAMENTO";
+        sql = "select idLancamento, altitudeMax, velocidadeMax, tempoPropulsao, picoAceleracao, aceleracaoMedia, tempoQueda, tempoEjecao, altitudeEjecao, taxaDescida, duracaoVoo, distanciaAlvo, data from LANCAMENTO";
         try {
             p = conexao.prepareStatement(sql);
             rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
@@ -50,7 +50,7 @@ public class LancamentoDAO {
         
         private List<Lancamento> gerarLista(ResultSet rs) throws SQLException {
         List<Lancamento> lista = new ArrayList();
-        Double altitudeMax, velocidadeMax, tempoPropulsao,picoAceleracao,aceleracaoMedia, tempoQueda, tempoEjecao, altitudeEjecao, taxaDescida, duracaoVoo, distanciaAlvo;
+        Double altitudeMax, velocidadeMax, tempoPropulsao, picoAceleracao, aceleracaoMedia, tempoQueda, tempoEjecao, altitudeEjecao, taxaDescida, duracaoVoo, distanciaAlvo;
         int idLancamento;
         Date data;
      

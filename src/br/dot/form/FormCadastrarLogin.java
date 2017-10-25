@@ -217,6 +217,11 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelaLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaLoginMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaLogin);
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -413,6 +418,15 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(null, "Falha ao alterar usuarío!\n");
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void tabelaLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLoginMouseClicked
+        int linha = tabelaLogin.getSelectedRow();
+        if (linha != -1) {
+
+            txtUsuario.setText(matriz[linha][1]);
+                    
+        }
+    }//GEN-LAST:event_tabelaLoginMouseClicked
     
     private void limpar() {
         txtUsuario.setText("");

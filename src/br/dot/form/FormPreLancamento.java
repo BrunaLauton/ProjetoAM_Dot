@@ -42,7 +42,7 @@ public class FormPreLancamento extends javax.swing.JFrame {
     }
     
     private void gerarMatriz(List<PreLancamento> lista) {
-        matriz = new String[lista.size()][13];
+        matriz = new String[lista.size()][5];
        PreLancamento lancamento;
      
         for (int k = 0; k < lista.size(); k++) {
@@ -89,6 +89,11 @@ public class FormPreLancamento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -339,11 +344,15 @@ public class FormPreLancamento extends javax.swing.JFrame {
 
             txtDistanciaAlvo.setText(matriz[linha][1]);
             txtAngulo.setText(matriz[linha][2]);
-            txtVelocidade.setText(matriz[linha][2]);
-            txtPesoFoguete.setText(matriz[linha][2]);
+            txtVelocidade.setText(matriz[linha][3]);
+            txtPesoFoguete.setText(matriz[linha][4]);
             
         }
     }//GEN-LAST:event_tablePreLancamentoMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        atualizarTabela();
+    }//GEN-LAST:event_formWindowOpened
 
     private void limpar() {
        txtPesoFoguete.setText("");
