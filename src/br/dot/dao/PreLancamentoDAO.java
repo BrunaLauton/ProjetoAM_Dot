@@ -37,8 +37,7 @@ public class PreLancamentoDAO {
                 p.setDouble(3, preLancamento.getVelocidadeVento());            
                 p.setDouble(4, preLancamento.getPesoFoguete());
                 LoginDAO dao = new LoginDAO();
-                preLancamento.setIdLogin(dao.acharLogado());
-                p.setInt(5, preLancamento.getIdLogin().getIdLogin());
+                p.setInt(5, dao.acharLogado().getIdLogin());
                 p.execute();
                 return true;
        } 

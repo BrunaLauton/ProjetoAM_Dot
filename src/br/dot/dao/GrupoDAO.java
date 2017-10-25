@@ -39,7 +39,6 @@ public class GrupoDAO {
         boolean status = false;
         sql = "insert into GRUPO values (?, ?, ?, ?, ?, ?, ?)";
         try{
-            
            p = conexao.prepareStatement(sql);
            p.setString(1,grupo.getNome());
            p.setString(3, grupo.getTurma());
@@ -60,9 +59,11 @@ public class GrupoDAO {
        
         List<Grupo> lista = null;
        
-        sql = "select idGrupo, nome, turma, qtdLancamento from GRUPO";
+        sql = "select idGrupo, nome, turma, qtdLancamento from GRUPO where login = ?";
         try {
             p = conexao.prepareStatement(sql);
+            LoginDAO dao = new LoginDAO();
+            p.setInt(1, dao.acharLogado().getIdLogin());
             rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
             lista = gerarLista(rs);
         }
@@ -184,4 +185,22 @@ public class GrupoDAO {
 //        return lista;
 //
 //    }
+
+    public boolean cadastrarGrupo(Grupo grupo) {
+        try{
+           sql = "insert into GRUPO values (id_generator.nextval,?,?,?,?)";
+                p = conexao.prepareStatement(sql);
+                p.setString(1, grupo.getNome());
+                p.setString(2, grupo.getTurma());                
+                p.setInt(3, grupo.getQtdLancamentos());
+                LoginDAO dao = new LoginDAO();
+                p.setInt(4, dao.acharLogado().getIdLogin());
+                p.execute();
+                return true;
+       } 
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return false;
+    }
 }

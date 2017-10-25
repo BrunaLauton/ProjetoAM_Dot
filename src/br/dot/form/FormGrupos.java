@@ -337,6 +337,27 @@ public class FormGrupos extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
+        try{
+        String nome =  txtNome.getText();
+        String turma =  txtTurma.getText();
+        int qtdLancamento = Integer.parseInt(txtQtdLancamento.getText());
+        
+        if(!nome.isEmpty() && !turma.isEmpty() && qtdLancamento != 0){
+            Grupo grupo = new Grupo(0, nome, turma, qtdLancamento, null);
+            GrupoDAO dao = new GrupoDAO();
+            boolean insert = dao.cadastrarGrupo(grupo);
+            if(insert){
+                 JOptionPane.showMessageDialog(null, "\nRegistro inserido com sucesso!");  
+                 atualizarTabela();
+            }
+            else            
+                 JOptionPane.showMessageDialog(null, "\nFalha ao inserir registro!");
+        }
+        
+     }
+     catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e + "\nTodos os campos prescisam ser preenchidos com valores validos!");
+     }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
