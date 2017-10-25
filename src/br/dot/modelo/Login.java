@@ -27,7 +27,14 @@ public class Login {
         this.idLogin = idLogin;
         this.usuario = usuario;
         this.senha = senha;
-    } 
+    }
+
+    public Login(String usuario, String senha) {
+        this.usuario = usuario;
+        this.senha = senha;
+    }
+    
+    
     
     public int getIdLogin() {
         return idLogin;

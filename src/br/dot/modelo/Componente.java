@@ -27,8 +27,13 @@ public class Componente {
         this.nome = nome;
         this.rm = rm;
     }
-    
 
+    public Componente(int idComponente, String nome, String rm) {
+        this.idComponente = idComponente;
+        this.nome = nome;
+        this.rm = rm;
+    }
+ 
     public Componente(int idComponente, String nome, Grupo idGrupo, String rm, Login idLogin) {
         this.idComponente = idComponente;
         this.nome = nome;

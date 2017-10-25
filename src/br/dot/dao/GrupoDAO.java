@@ -60,29 +60,31 @@ public class GrupoDAO {
        
         List<Grupo> lista = null;
        
-        sql = "select nome, turma, qtdLancamento from GRUPO";
+        sql = "select idGrupo, nome, turma, qtdLancamento from GRUPO";
         try {
             p = conexao.prepareStatement(sql);
             rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
             lista = gerarLista(rs);
         }
         catch(SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os clientes\n"+e);
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os grupos!\n"+e);
         }
         return lista;
 
     }
         
         private List<Grupo> gerarLista(ResultSet rs) throws SQLException {
-        List<Componente> lista = new ArrayList();
-        String nome, rm, qtdLancamento;
+        List<Grupo> lista = new ArrayList();
+        String nome, rm;
+        int idGrupo,  qtdLancamento;
      
         while(rs.next()) {
+            idGrupo = rs.getInt("idGrupo");
             nome = rs.getString("nome");
-            rm = rs.getString("rm");
-            qtdLancamento = rs.getString("rm");
+            rm = rs.getString("turma");
+            qtdLancamento = rs.getInt("qtdLancamento");
           
-            lista.add(new Grupo);            
+            lista.add(new Grupo(idGrupo, nome, rm, qtdLancamento));            
         }
         return lista;
 

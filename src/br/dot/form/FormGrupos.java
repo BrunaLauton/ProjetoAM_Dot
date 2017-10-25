@@ -35,21 +35,21 @@ public class FormGrupos extends javax.swing.JFrame {
         List<Grupo> lista = dao.listarGrupo();
         gerarMatriz(lista);
         TableModel modelo = new DefaultTableModel(matriz, 
-                new String[]{"Nome do Grupo", "Turma", "Quantidade de Lançamentos"});
+                new String[]{"Código do Grupo","Nome do Grupo", "Turma", "Quantidade de Lançamentos"});
         tableGrupos.setModel(modelo);
 
     }
     
     private void gerarMatriz(List<Grupo> lista) {
-        matriz = new String[lista.size()][3];
+        matriz = new String[lista.size()][4];
         Grupo grupo;
         for (int k = 0; k < lista.size(); k++) {
             grupo = lista.get(k);
 
-            matriz[k][0] = grupo.getNome();
-            matriz[k][1] = grupo.getTurma();
-            matriz[k][2] = Integer.toString(grupo.getQtdLancamentos());
-            
+            matriz[k][0] = Integer.toString(grupo.getIdGrupo());
+            matriz[k][1] = grupo.getNome();
+            matriz[k][2] = grupo.getTurma();
+            matriz[k][3] = Integer.toString(grupo.getQtdLancamentos());
             
         }
     }
@@ -86,6 +86,11 @@ public class FormGrupos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel2.setText("Grupos");
@@ -328,6 +333,10 @@ public class FormGrupos extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        atualizarTabela();
+    }//GEN-LAST:event_formWindowOpened
 
     private void limpar() {
         txtNome.setText("");

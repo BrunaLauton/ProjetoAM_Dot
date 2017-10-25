@@ -33,6 +33,13 @@ public class Grupo {
         this.turma = turma;
         this.qtdLancamentos = qtdLancamentos;
     }
+
+    public Grupo(int idGrupo, String nome, String turma, int qtdLancamentos) {
+        this.idGrupo = idGrupo;
+        this.nome = nome;
+        this.turma = turma;
+        this.qtdLancamentos = qtdLancamentos;
+    }
     
     
 

@@ -36,19 +36,20 @@ public class FormComponente extends javax.swing.JFrame {
         List<Componente> lista = dao.listarComponente();
         gerarMatriz(lista);
         TableModel modelo = new DefaultTableModel(matriz, 
-                new String[]{"Nome do Componente", "RM do Componente"});
+                new String[]{"ID do Componente","Nome do Componente", "RM do Componente"});
         tabelaComponentes.setModel(modelo);
 
     }
     
     private void gerarMatriz(List<Componente> lista) {
-        matriz = new String[lista.size()][2];
+        matriz = new String[lista.size()][3];
         Componente componente;
         for (int k = 0; k < lista.size(); k++) {
             componente= lista.get(k);
 
-            matriz[k][0] = componente.getNome();
-            matriz[k][1] = componente.getRm();
+            matriz[k][0] = Integer.toString(componente.getIdComponente());
+            matriz[k][1] = componente.getNome();
+            matriz[k][2] = componente.getRm();
             
         }
     }
