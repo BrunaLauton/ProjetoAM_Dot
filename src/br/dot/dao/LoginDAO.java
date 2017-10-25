@@ -150,5 +150,46 @@ public class LoginDAO {
         }
         return false;
     }
+
+    public Login PesquisarLoginPeloNome(String nome) throws SQLException {
+        try {
+            sql = "select * from LOGIN where usuario = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(1, nome);
+            rs = p.executeQuery();
+            rs.next(); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuarío!\n"+e);
+        }
+        Login login = new Login(rs.getInt("idLogin"), rs.getString("usuario"), rs.getString("senha"), rs.getString("logado"));
+        return login;
+    }
+
+    public boolean ExcluirLoginPeloNome(String nome) {
+        try {
+            sql = "delete from LOGIN where usuario = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(1, nome);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir usuarío!\n"+e);
+        }
+        return false;
+    }
+
+    public boolean AlterarLoginPeloNome(String nome, String senha) {
+        try {
+            sql = "update LOGIN set senha = ? where usuario = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(1, senha);
+            p.setString(2, nome);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar usuarío!\n"+e);
+        }
+        return false;
+    }
 }
 
