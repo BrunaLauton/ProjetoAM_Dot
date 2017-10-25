@@ -200,6 +200,11 @@ public class FormGrupos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableGruposMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableGrupos);
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -364,6 +369,17 @@ public class FormGrupos extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         atualizarTabela();
     }//GEN-LAST:event_formWindowOpened
+
+    private void tableGruposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableGruposMouseClicked
+        int linha = tableGrupos.getSelectedRow();
+        if (linha != -1) {
+
+            txtNome.setText(matriz[linha][1]);
+            txtTurma.setText(matriz[linha][2]);
+            txtQtdLancamento.setText(matriz[linha][3]);
+            
+        }
+    }//GEN-LAST:event_tableGruposMouseClicked
 
     private void limpar() {
         txtNome.setText("");

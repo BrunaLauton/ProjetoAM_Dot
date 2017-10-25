@@ -133,6 +133,11 @@ public class FormPreLancamento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePreLancamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePreLancamentoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablePreLancamento);
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
@@ -327,6 +332,18 @@ public class FormPreLancamento extends javax.swing.JFrame {
      }
      
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void tablePreLancamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePreLancamentoMouseClicked
+        int linha = tablePreLancamento.getSelectedRow();
+        if (linha != -1) {
+
+            txtDistanciaAlvo.setText(matriz[linha][1]);
+            txtAngulo.setText(matriz[linha][2]);
+            txtVelocidade.setText(matriz[linha][2]);
+            txtPesoFoguete.setText(matriz[linha][2]);
+            
+        }
+    }//GEN-LAST:event_tablePreLancamentoMouseClicked
 
     private void limpar() {
        txtPesoFoguete.setText("");

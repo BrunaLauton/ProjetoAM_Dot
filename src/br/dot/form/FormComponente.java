@@ -228,6 +228,11 @@ public class FormComponente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelaComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaComponentesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaComponentes);
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -393,6 +398,17 @@ public class FormComponente extends javax.swing.JFrame {
     private void cmbGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGrupoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbGrupoActionPerformed
+
+    private void tabelaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaComponentesMouseClicked
+     
+        int linha = tabelaComponentes.getSelectedRow();
+        if (linha != -1) {
+
+            txtNome.setText(matriz[linha][1]);
+            txtRM.setText(matriz[linha][2]);
+            
+        }
+    }//GEN-LAST:event_tabelaComponentesMouseClicked
 
     
     private void limpar() {
