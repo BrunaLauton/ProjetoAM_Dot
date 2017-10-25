@@ -80,6 +80,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         btnLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -282,6 +283,8 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja fechar e sair do programa?");
         if(resposta == JOptionPane.YES_OPTION) {
+            LoginDAO login = new LoginDAO();
+            login.updateLoginOFF();
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
@@ -315,6 +318,8 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja finalizar o programa?");
         if(resposta == JOptionPane.YES_OPTION) {
+            LoginDAO login = new LoginDAO();
+            login.updateLoginOFF();
             System.exit(0);
         }
     }//GEN-LAST:event_btnSairActionPerformed

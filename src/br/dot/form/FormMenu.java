@@ -5,6 +5,7 @@
  */
 package br.dot.form;
 
+import br.dot.dao.LoginDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -225,7 +226,9 @@ public class FormMenu extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja finalizar o programa?");
             if(resposta == JOptionPane.YES_OPTION) {
-                 System.exit(0);
+                LoginDAO login = new LoginDAO();
+                login.updateLoginOFF();
+                System.exit(0);
              }        // TODO add your handling code here:
     }//GEN-LAST:event_btnSairActionPerformed
 
@@ -244,7 +247,9 @@ public class FormMenu extends javax.swing.JFrame {
     private void btnExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExActionPerformed
           int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja fechar e sair do programa?");
             if(resposta == JOptionPane.YES_OPTION) {
-                 System.exit(0);
+                LoginDAO login = new LoginDAO();
+                login.updateLoginOFF();
+                System.exit(0);
              } 
     }//GEN-LAST:event_btnExActionPerformed
 
