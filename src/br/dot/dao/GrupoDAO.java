@@ -5,6 +5,7 @@
  */
 package br.dot.dao;
 
+import br.dot.modelo.Componente;
 import br.dot.modelo.Grupo;
 import br.fiap.conexao.Conexao;
 import java.sql.Connection;
@@ -53,6 +54,38 @@ public class GrupoDAO {
         }
         
         return status;
+    }
+     
+     public List<Componente> listarGrupo(){
+       
+        List<Componente> lista = null;
+       
+        sql = "select nome, turma, qtdLancamento from GRUPO";
+        try {
+            p = conexao.prepareStatement(sql);
+            rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
+            lista = gerarLista(rs);
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os clientes\n"+e);
+        }
+        return lista;
+
+    }
+        
+        private List<Componente> gerarLista(ResultSet rs) throws SQLException {
+        List<Componente> lista = new ArrayList();
+        String nome, rm, qtdLancamento;
+     
+        while(rs.next()) {
+            nome = rs.getString("nome");
+            rm = rs.getString("rm");
+            qtdLancamento = rs.getString("rm");
+          
+            lista.add(new Componente(nome, rm));            
+        }
+        return lista;
+
     }
      
 //     public boolean alterarCliente(Cliente cliente){
