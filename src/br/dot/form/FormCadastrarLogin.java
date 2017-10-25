@@ -294,7 +294,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         String usuario = txtUsuario.getText();
-        String senha = txtSenha.getText();
+        String senha = new String(txtSenha.getPassword());
 
         if(usuario.equals("") || senha.equals("")){
             JOptionPane.showMessageDialog(null, "Todos os campos prescisam ser preenchidos!");
@@ -354,10 +354,13 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     }
     
      private void desativarBotao(){
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
-        btnPesquisat.setEnabled(false);
-        btnVoltar.setEnabled(false);
+        LoginDAO login = new LoginDAO();
+        if(!login.acharLogadoBoolean()){
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            btnPesquisat.setEnabled(false);
+            btnVoltar.setEnabled(false);
+        }
     }
     /**
      * @param args the command line arguments

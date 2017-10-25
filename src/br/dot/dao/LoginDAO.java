@@ -59,12 +59,6 @@ public class LoginDAO {
     
     public boolean cadastrarLogin(Login login){
         try {
-<<<<<<< HEAD
-            
-            sql = "insert into LOGIN values (id_generator.nextval,?,?)";
-            sql = "insert into LOGIN values (id_generator.nextval,?, ?, 'N')";
-=======
->>>>>>> 071024cde8ec624265c9f837f492acdca8ad0c1c
             sql = "insert into LOGIN values (id_generator.nextval,?, ?, 'N')";
             p = conexao.prepareStatement(sql);
             p.setString(1, login.getUsuario());
@@ -142,6 +136,19 @@ public class LoginDAO {
         }
         Login login = new Login(rs.getInt("idLogin"), rs.getString("usuario"), rs.getString("senha"), rs.getString("logado"));
         return login;
+    }
+
+    public boolean acharLogadoBoolean() {
+        try {
+            sql = "select * from LOGIN where logado = 'S'"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql); 
+            rs = p.executeQuery();
+            if(rs.next())
+                return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+        return false;
     }
 }
 

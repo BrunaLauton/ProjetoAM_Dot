@@ -27,7 +27,14 @@ public class FormComponente extends javax.swing.JFrame {
      */
     public FormComponente() {
         initComponents();
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
+         
+        Form2DAO dao = new Form2DAO();
+        List myList = dao.pegarLaboratorios();
+        
+        for(Object i: myList){
+            labFld.addItem((String) i);
+        }
     }
     
     private void atualizarTabela() {
