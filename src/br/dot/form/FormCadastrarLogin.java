@@ -34,7 +34,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         List<Login> lista = dao.listarLogin();
         gerarMatriz(lista);
         TableModel modelo = new DefaultTableModel(matriz, 
-                new String[]{"Usuário", "Senha"});
+                new String[]{"Código do Login","Usuário", "Senha"});
         tabelaLogin.setModel(modelo);
 
     }

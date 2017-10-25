@@ -5,8 +5,12 @@
  */
 package br.dot.form;
 
-import br.dot.dao.LoginDAO;
+import br.dot.dao.LancamentoDAO;
+import br.dot.modelo.Lancamento;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -14,12 +18,49 @@ import javax.swing.JOptionPane;
  */
 public class FormLancamento extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormLancamento
-     */
+     private String[][] matriz;
+     
     public FormLancamento() {
         initComponents();
          setLocationRelativeTo(null);
+    }
+    
+    private void atualizarTabela() {
+
+        LancamentoDAO dao = new LancamentoDAO();
+        List<Lancamento> lista = dao.listarLancamento();
+        gerarMatriz(lista);
+        TableModel modelo = new DefaultTableModel(matriz, 
+                new String[]{"Código do Lançamento","Altitude Máxima", "Velocidade Máxima", "Tempo Propulsão", "Pico Aceleração", "Aceleração Média", "Tempo Queda", "Tempo Ejeção", "Altitude Ejeção", "Taxa Descida", "Duração Voo", "Distância do Alvo", "Data do Lançamento"});
+        tableLancamento.setModel(modelo);
+
+    }
+    
+    private void gerarMatriz(List<Lancamento> lista) {
+        matriz = new String[lista.size()][13];
+       Lancamento lancamento;
+        for (int k = 0; k < lista.size(); k++) {
+            lancamento = lista.get(k);
+
+            matriz[k][0] = Integer.toString(lancamento.getIdLancamento());
+            matriz[k][1] = Double.toString(lancamento.getAltitudeMax());
+            matriz[k][2] = Double.toString(lancamento.getVelocidadeMax());
+            matriz[k][3] = Double.toString(lancamento.getTempoPropulsao());
+            matriz[k][4] = Double.toString(lancamento.getPicoAceleracao());
+            matriz[k][5] = Double.toString(lancamento.getUsuario());
+            matriz[k][6] = Double.toString(lancamento.getUsuario());
+            matriz[k][7] = Double.toString(lancamento.getUsuario());
+            matriz[k][8] = Double.toString(ncamento.getUsuario());
+            matriz[k][9] = Double.toString(lancamento.getUsuario());
+            matriz[k][10] = Double.toString(lancamento.getUsuario());
+            matriz[k][11] = Double.toString(lancamento.getUsuario());
+            matriz[k][12] = lancamento.getUsuario();
+            
+            
+           
+            
+            
+        }
     }
 
     /**
@@ -59,7 +100,7 @@ public class FormLancamento extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablePreLancamento = new javax.swing.JTable();
+        tableLancamento = new javax.swing.JTable();
         btnSalvar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
@@ -169,8 +210,8 @@ public class FormLancamento extends javax.swing.JFrame {
         jComboBox2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         PnlLancamento.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 110, 30));
 
-        tablePreLancamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        tablePreLancamento.setModel(new javax.swing.table.DefaultTableModel(
+        tableLancamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        tableLancamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -181,7 +222,7 @@ public class FormLancamento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablePreLancamento);
+        jScrollPane1.setViewportView(tableLancamento);
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -424,7 +465,7 @@ public class FormLancamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablePreLancamento;
+    private javax.swing.JTable tableLancamento;
     private javax.swing.JTextField txtAceleracaoMedia;
     private javax.swing.JTextField txtAltitudeEjecao;
     private javax.swing.JTextField txtAltitudeMax;

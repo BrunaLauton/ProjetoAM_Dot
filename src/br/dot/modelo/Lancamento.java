@@ -30,6 +30,24 @@ public class Lancamento {
     private Grupo grupo;
     private Login idLogin;
 
+    public Lancamento(int idLancamento, double altitudeMax, double velocidadeMax, double tempoPropulsao, double picoAceleracao, double aceleracaoMedia, double tempoQueda, double tempoEjecao, double altitudeEjecao, double taxaDescida, double duracaoVoo, double distanciaDoAlvo, Date data) {
+        this.idLancamento = idLancamento;
+        this.altitudeMax = altitudeMax;
+        this.velocidadeMax = velocidadeMax;
+        this.tempoPropulsao = tempoPropulsao;
+        this.picoAceleracao = picoAceleracao;
+        this.aceleracaoMedia = aceleracaoMedia;
+        this.tempoQueda = tempoQueda;
+        this.tempoEjecao = tempoEjecao;
+        this.altitudeEjecao = altitudeEjecao;
+        this.taxaDescida = taxaDescida;
+        this.duracaoVoo = duracaoVoo;
+        this.distanciaDoAlvo = distanciaDoAlvo;
+        this.data = data;
+    }
+    
+    
+
     public Lancamento(int idLancamento, double altitudeMax, double velocidadeMax, double tempoPropulsao, double picoAceleracao, double aceleracaoMedia, double tempoQueda, double tempoEjecao, double altitudeEjecao, double taxaDescida, double duracaoVoo, double distanciaDoAlvo, Date data, PreLancamento preLanca, Grupo grupo, Login idLogin) {
         this.idLancamento = idLancamento;
         this.altitudeMax = altitudeMax;
