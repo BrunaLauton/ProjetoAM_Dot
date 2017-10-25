@@ -27,6 +27,14 @@ public class PreLancamento {
         this.idLogin = idLogin;
     }
 
+    public PreLancamento(int idPreLancameto, double distanciaAlvo, double anguloLanca, double velocidadeVento, double pesoFoguete) {
+        this.idPreLancameto = idPreLancameto;
+        this.distanciaAlvo = distanciaAlvo;
+        this.anguloLanca = anguloLanca;
+        this.velocidadeVento = velocidadeVento;
+        this.pesoFoguete = pesoFoguete;
+    }
+
     public int getIdPreLancameto() {
         return idPreLancameto;
     }

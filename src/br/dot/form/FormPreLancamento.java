@@ -5,11 +5,17 @@
  */
 package br.dot.form;
 
+import br.dot.dao.LancamentoDAO;
 import br.dot.dao.LoginDAO;
 import br.dot.dao.PreLancamentoDAO;
+import br.dot.modelo.Lancamento;
 import br.dot.modelo.Login;
 import br.dot.modelo.PreLancamento;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -17,13 +23,39 @@ import javax.swing.JOptionPane;
  */
 public class FormPreLancamento extends javax.swing.JFrame {
 
-    
+    private String[][] matriz;
      
     public FormPreLancamento() {
         initComponents();
          setLocationRelativeTo(null);         
     }
 
+    private void atualizarTabela() {
+
+        PreLancamentoDAO dao = new PreLancamentoDAO();
+        List<PreLancamento> lista = dao.listarPreLancamento();
+        gerarMatriz(lista);
+        TableModel modelo = new DefaultTableModel(matriz, 
+                new String[]{"Código do Pré-Lançamento","Distância do Alvo", "Ângulo do Lançamento" ,"Velocidade do Vento", "Peso do Foguete"});
+        tablePreLancamento.setModel(modelo);
+
+    }
+    
+    private void gerarMatriz(List<PreLancamento> lista) {
+        matriz = new String[lista.size()][13];
+       PreLancamento lancamento;
+     
+        for (int k = 0; k < lista.size(); k++) {
+            lancamento = lista.get(k);
+
+            matriz[k][0] = Integer.toString(lancamento.getIdPreLancameto());
+            matriz[k][1] = Double.toString(lancamento.getDistanciaAlvo());
+            matriz[k][2] = Double.toString(lancamento.getAnguloLanca());
+            matriz[k][3] = Double.toString(lancamento.getVelocidadeVento());
+            matriz[k][4] = Double.toString(lancamento.getPesoFoguete());
+         
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
