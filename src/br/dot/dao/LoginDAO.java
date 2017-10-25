@@ -53,6 +53,7 @@ public class LoginDAO {
         return achou;
         
     }
+<<<<<<< HEAD
     
     public boolean cadastrarLogin(Login login){
         try {
@@ -104,3 +105,40 @@ public class LoginDAO {
     }
 
 }
+=======
+
+    public void updateLoginON(Login usuario) {
+        try {
+            sql = "update LOGIN set logado = 'S' where idlogin = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setInt(1, usuario.getIdLogin());
+            p.execute();
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao logar usuarío!\n"+ex);
+        }
+    }
+
+    public void updateLoginOFF() {
+        try {
+            sql = "update LOGIN set logado = 'N'"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.execute();
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao deslogar usuarío!\n"+ex);
+        }
+    }
+
+    public Login acharLogado() throws SQLException {
+        try {
+            sql = "select * from LOGIN where logado = 'S'"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql); 
+            rs = p.executeQuery();
+            rs.next();    
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+        Login login = new Login(rs.getInt("idLogin"), rs.getString("usuario"), rs.getString("senha"), rs.getString("logado"));
+        return login;
+    }
+}
+>>>>>>> 711a4da951f85d66ccb2812555e08f717babb060

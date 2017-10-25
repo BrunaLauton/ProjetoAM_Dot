@@ -5,6 +5,10 @@
  */
 package br.dot.form;
 
+import br.dot.dao.LoginDAO;
+import br.dot.dao.PreLancamentoDAO;
+import br.dot.modelo.Login;
+import br.dot.modelo.PreLancamento;
 import javax.swing.JOptionPane;
 
 /**
@@ -128,6 +132,11 @@ public class FormPreLancamento extends javax.swing.JFrame {
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
@@ -254,6 +263,31 @@ public class FormPreLancamento extends javax.swing.JFrame {
                  System.exit(0);
              } 
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+     try{
+        double distancia =  Double.parseDouble(txtDistanciaAlvo.getText());
+        double angulo =  Double.parseDouble(txtAngulo.getText());
+        double velocidade = Double.parseDouble(txtVelocidade.getText());
+        double peso = Double.parseDouble(txtPesoFoguete.getText());
+        
+        if(distancia != 0 && angulo != 0 && velocidade != 0 && peso != 0){
+            PreLancamento preLancamento = new PreLancamento(0, distancia, angulo, velocidade, peso, null);
+            PreLancamentoDAO dao = new PreLancamentoDAO();
+            boolean insert = dao.cadastrarPreLancamento(preLancamento);
+            if(insert)
+                 JOptionPane.showMessageDialog(null, "\nRegistro inserido com sucesso!");           
+            else            
+                 JOptionPane.showMessageDialog(null, "\nFalha ao inserir registro!");
+        }
+        
+     }
+     catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, e + "\nTodos os campos prescisam ser preenchidos com valores validos!");
+     }
+     
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void limpar() {
        txtPesoFoguete.setText("");

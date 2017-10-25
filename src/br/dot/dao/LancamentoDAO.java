@@ -5,7 +5,7 @@
  */
 package br.dot.dao;
 
-import br.fiap.conexao.Conexao;
+import br.dot.conexao.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

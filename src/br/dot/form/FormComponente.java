@@ -82,12 +82,17 @@ public class FormComponente extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
 
+<<<<<<< HEAD
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
+=======
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setUndecorated(true);
+>>>>>>> 711a4da951f85d66ccb2812555e08f717babb060
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -192,6 +197,11 @@ public class FormComponente extends javax.swing.JFrame {
 
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         tabelaComponentes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         tabelaComponentes.setModel(new javax.swing.table.DefaultTableModel(
@@ -296,6 +306,8 @@ public class FormComponente extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja fechar e sair do programa?");
         if(resposta == JOptionPane.YES_OPTION) {
+            LoginDAO login = new LoginDAO();
+            login.updateLoginOFF();
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
@@ -307,6 +319,8 @@ public class FormComponente extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja finalizar o programa?");
         if(resposta == JOptionPane.YES_OPTION) {
+            LoginDAO login = new LoginDAO();
+            login.updateLoginOFF();
             System.exit(0);
         }
 
@@ -343,10 +357,16 @@ public class FormComponente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+<<<<<<< HEAD
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         limpar();
         atualizarTabela();
     }//GEN-LAST:event_formWindowOpened
+=======
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
+>>>>>>> 711a4da951f85d66ccb2812555e08f717babb060
     
     private void limpar() {
         txtNome.setText("");

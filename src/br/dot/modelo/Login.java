@@ -14,18 +14,15 @@ public class Login {
     private int idLogin;
     private String usuario;
     private String senha;
+    private String logado;
 
-    public Login(int idLogin, String usuario, String senha) {
+    public Login(int idLogin, String usuario, String senha, String logado) {
         this.idLogin = idLogin;
         this.usuario = usuario;
         this.senha = senha;
+        this.logado = logado;
     }
     
-    public Login(String usuario, String senha) {
-        this.usuario = usuario;
-        this.senha = senha;
-    }
-
     public int getIdLogin() {
         return idLogin;
     }
@@ -50,9 +47,11 @@ public class Login {
         this.senha = senha;
     }
 
-  
-    
-    
-    
-    
+    public String getLogado() {
+        return logado;
+    }
+
+    public void setLogado(String logado) {
+        this.logado = logado;
+    }
 }
