@@ -48,8 +48,7 @@ public class ComponenteDAO {
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        return false;
-       
+        return false;       
     }
     
     

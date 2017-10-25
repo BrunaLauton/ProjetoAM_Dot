@@ -76,6 +76,31 @@ public class LancamentoDAO {
     }
 
     public boolean cadastrarLancamento(Lancamento lancamento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+           sql = "insert into LANCAMENTO values (id_generator.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                p = conexao.prepareStatement(sql);
+                p.setDouble(1, lancamento.getAltitudeMax());
+                p.setDouble(2, lancamento.getVelocidadeMax());
+                p.setDouble(3, lancamento.getTempoPropulsao());
+                p.setDouble(4, lancamento.getPicoAceleracao());
+                p.setDouble(5, lancamento.getAceleracaoMedia());
+                p.setDouble(6, lancamento.getTempoQueda());
+                p.setDouble(7, lancamento.getTempoEjecao());
+                p.setDouble(8, lancamento.getAltitudeEjecao());
+                p.setDouble(9, lancamento.getTaxaDescida());
+                p.setDouble(10, lancamento.getDuracaoVoo());
+                p.setDouble(11, lancamento.getDistanciaDoAlvo());
+                p.setDate(12, lancamento.getData());
+                p.setInt(13, lancamento.getGrupo().getIdGrupo());
+                p.setInt(14, lancamento.getPreLanca().getIdPreLancameto());
+                LoginDAO dao = new LoginDAO();
+                p.setInt(15, dao.acharLogado().getIdLogin());
+                p.execute();
+                return true;
+       } 
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return false;
     }
 }
