@@ -68,7 +68,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
         btnSalvar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnPesquisat = new javax.swing.JButton();
@@ -127,7 +127,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         jLabel8.setText("Senha:");
 
-        txtSenha.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        txtSenha.setText("jPasswordField1");
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSenhaActionPerformed(evt);
@@ -144,9 +144,9 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(txtSenha))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -157,10 +157,12 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtSenha))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                        .addGap(2, 2, 2))
+                    .addComponent(jLabel8))
+                .addGap(25, 25, 25))
         );
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -274,7 +276,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -288,10 +290,6 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
-
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
@@ -342,6 +340,10 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         atualizarTabela();
         desativarBotao();
     }//GEN-LAST:event_formWindowOpened
+
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaActionPerformed
     
     private void limpar() {
         txtUsuario.setText("");
@@ -410,7 +412,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaLogin;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
