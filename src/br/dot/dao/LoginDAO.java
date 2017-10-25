@@ -6,7 +6,6 @@
 package br.dot.dao;
 
 import br.dot.modelo.Login;
-import br.fiap.conexao.Conexao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -43,9 +42,11 @@ public class LoginDAO {
             p.setString(1,usuario.getUsuario());
             p.setString(2, usuario.getSenha());
             rs = p.executeQuery();
-            achou = rs.next();
             usuario.setIdLogin(rs.getInt("idLogin"));
             achou = true;
+         
+            LoginDAO dao = new LoginDAO();
+            dao.updateLoginON(usuario);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuário!\n"+ex);
         }
