@@ -9,7 +9,6 @@ import br.dot.conexao.Conexao;
 import br.dot.modelo.Login;
 import br.dot.conexao.Conexao;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,14 +59,10 @@ public class LoginDAO {
     
     public boolean cadastrarLogin(Login login){
         try {
-<<<<<<< HEAD
-
+            
             sql = "insert into LOGIN values (id_generator.nextval,?,?)";
             sql = "insert into LOGIN values (id_generator.nextval,?, ?, 'N')";
-
-=======
             sql = "insert into LOGIN values (id_generator.nextval,?, ?, 'N')";
->>>>>>> 61bc4ff639665d4c10d99d7aeac5b607cf96ae4c
             p = conexao.prepareStatement(sql);
             p.setString(1, login.getUsuario());
             p.setString(2, login.getSenha());

@@ -6,7 +6,9 @@
 package br.dot.form;
 
 import br.dot.dao.LancamentoDAO;
+import br.dot.dao.LoginDAO;
 import br.dot.modelo.Lancamento;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,7 @@ import javax.swing.table.TableModel;
 public class FormLancamento extends javax.swing.JFrame {
 
      private String[][] matriz;
+     private SimpleDateFormat dataFormatada;
      
     public FormLancamento() {
         initComponents();
@@ -39,6 +42,7 @@ public class FormLancamento extends javax.swing.JFrame {
     private void gerarMatriz(List<Lancamento> lista) {
         matriz = new String[lista.size()][13];
        Lancamento lancamento;
+       dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
         for (int k = 0; k < lista.size(); k++) {
             lancamento = lista.get(k);
 
@@ -47,19 +51,15 @@ public class FormLancamento extends javax.swing.JFrame {
             matriz[k][2] = Double.toString(lancamento.getVelocidadeMax());
             matriz[k][3] = Double.toString(lancamento.getTempoPropulsao());
             matriz[k][4] = Double.toString(lancamento.getPicoAceleracao());
-            matriz[k][5] = Double.toString(lancamento.getUsuario());
-            matriz[k][6] = Double.toString(lancamento.getUsuario());
-            matriz[k][7] = Double.toString(lancamento.getUsuario());
-            matriz[k][8] = Double.toString(ncamento.getUsuario());
-            matriz[k][9] = Double.toString(lancamento.getUsuario());
-            matriz[k][10] = Double.toString(lancamento.getUsuario());
-            matriz[k][11] = Double.toString(lancamento.getUsuario());
-            matriz[k][12] = lancamento.getUsuario();
-            
-            
-           
-            
-            
+            matriz[k][5] = Double.toString(lancamento.getAceleracaoMedia());
+            matriz[k][6] = Double.toString(lancamento.getTempoQueda());
+            matriz[k][7] = Double.toString(lancamento.getTempoEjecao());
+            matriz[k][8] = Double.toString(lancamento.getAltitudeEjecao());
+            matriz[k][9] = Double.toString(lancamento.getTaxaDescida());
+            matriz[k][10] = Double.toString(lancamento.getDuracaoVoo());
+            matriz[k][11] = Double.toString(lancamento.getDistanciaDoAlvo());
+            matriz[k][12] = dataFormatada.format(lancamento.getData());
+
         }
     }
 
