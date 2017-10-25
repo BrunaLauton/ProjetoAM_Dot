@@ -60,7 +60,11 @@ public class LoginDAO {
     
     public boolean cadastrarLogin(Login login){
         try {
+<<<<<<< HEAD
             sql = "insert into LOGIN values (id_generator.nextval,?,?)";
+=======
+            sql = "insert into LOGIN values (id_generator.nextval,?, ?, 'N')";
+>>>>>>> 74957c919e8416d8a003fbcbf99af21833fc7475
             p = conexao.prepareStatement(sql);
             p.setString(1, login.getUsuario());
             p.setString(2, login.getSenha());
