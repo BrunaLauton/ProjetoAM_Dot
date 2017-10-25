@@ -4,11 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-<<<<<<< HEAD
       <Color id="Cursor Padr&#xe3;o"/>
-=======
-      <Color id="Default Cursor"/>
->>>>>>> b2be93899e065bc9089eba1d701b9f1a011cb8e3
     </Property>
     <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
@@ -285,12 +281,9 @@
               </Table>
             </Property>
           </Properties>
-<<<<<<< HEAD
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableGruposMouseClicked"/>
           </Events>
-=======
->>>>>>> b2be93899e065bc9089eba1d701b9f1a011cb8e3
         </Component>
       </SubComponents>
     </Container>
