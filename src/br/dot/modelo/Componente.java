@@ -17,17 +17,6 @@ public class Componente {
     private String rm;
     private Login idLogin;
 
-    public Componente(String nome, Grupo idGrupo, String rm) {
-        this.nome = nome;
-        this.idGrupo = idGrupo;
-        this.rm = rm;
-    }
-
-    public Componente(String nome, String rm) {
-        this.nome = nome;
-        this.rm = rm;
-    }
-
     public Componente(int idComponente, String nome, String rm) {
         this.idComponente = idComponente;
         this.nome = nome;
@@ -81,12 +70,5 @@ public class Componente {
     public void setIdLogin(Login idLogin) {
         this.idLogin = idLogin;
     }
-    
-    
-   
-
-   
-
-    
-    
+       
 }

@@ -302,11 +302,15 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         else{
             Login login = new Login(0, usuario, senha, null);
             LoginDAO dao = new LoginDAO();
-            
-              if(dao.cadastrarLogin(login)){
+        if(dao.cadastrarLogin(login)){
             JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
             limpar();
             atualizarTabela();
+            if(!dao.acharLogadoBoolean()){
+                FormLogin flogin = new FormLogin();
+                dispose();
+                flogin.setVisible(true);
+            }
         }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -354,8 +358,8 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     }
     
      private void desativarBotao(){
-        LoginDAO login = new LoginDAO();
-        if(!login.acharLogadoBoolean()){
+        LoginDAO dao = new LoginDAO();
+        if(!dao.acharLogadoBoolean()){
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
             btnPesquisat.setEnabled(false);

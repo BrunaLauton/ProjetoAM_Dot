@@ -5,11 +5,21 @@
  */
 package br.dot.form;
 
+import br.dot.dao.GrupoDAO;
 import br.dot.dao.LancamentoDAO;
 import br.dot.dao.LoginDAO;
+import br.dot.dao.PreLancamentoDAO;
+import br.dot.modelo.Grupo;
 import br.dot.modelo.Lancamento;
+import br.dot.modelo.PreLancamento;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -25,7 +35,21 @@ public class FormLancamento extends javax.swing.JFrame {
      
     public FormLancamento() {
         initComponents();
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
+        
+        GrupoDAO dao = new GrupoDAO();
+        List myList = dao.pegarGrupos();
+        
+        for(Object i: myList){
+            cmbGrupo.addItem((String) i);
+        }
+        
+        PreLancamentoDAO daoPre = new PreLancamentoDAO();
+        List myListPre = daoPre.pegarPreLancamentos();
+        
+        for(Object i: myListPre){
+            cmbPre.addItem(Integer.toString((Integer)i));
+        }
     }
     
     private void atualizarTabela() {
@@ -95,10 +119,12 @@ public class FormLancamento extends javax.swing.JFrame {
         txtAltitudeEjecao = new javax.swing.JTextField();
         txtTempoEjecao = new javax.swing.JTextField();
         txtTempoQueda = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbPre = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmbGrupo = new javax.swing.JComboBox<>();
+        txtData = new javax.swing.JFormattedTextField();
+        jLabel15 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLancamento = new javax.swing.JTable();
         btnSalvar = new javax.swing.JButton();
@@ -133,7 +159,7 @@ public class FormLancamento extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         jLabel4.setText("Pré-Lançamento:");
-        PnlLancamento.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 320, -1, -1));
+        PnlLancamento.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, -1, -1));
 
         txtDistanciaAlvo.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         PnlLancamento.add(txtDistanciaAlvo, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 180, -1));
@@ -196,8 +222,8 @@ public class FormLancamento extends javax.swing.JFrame {
         txtTempoQueda.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         PnlLancamento.add(txtTempoQueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 180, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        PnlLancamento.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 100, 30));
+        cmbPre.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        PnlLancamento.add(cmbPre, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, 180, 30));
 
         jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         jLabel13.setText("Distância do Alvo:");
@@ -205,10 +231,27 @@ public class FormLancamento extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         jLabel14.setText("Grupo:");
-        PnlLancamento.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 70, -1));
+        PnlLancamento.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 70, -1));
 
-        jComboBox2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        PnlLancamento.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 110, 30));
+        cmbGrupo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cmbGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGrupoActionPerformed(evt);
+            }
+        });
+        PnlLancamento.add(cmbGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 180, 30));
+
+        try {
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtData.setToolTipText("");
+        PnlLancamento.add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 180, 30));
+
+        jLabel15.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
+        jLabel15.setText("Data:");
+        PnlLancamento.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, -1, -1));
 
         tableLancamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         tableLancamento.setModel(new javax.swing.table.DefaultTableModel(
@@ -226,6 +269,11 @@ public class FormLancamento extends javax.swing.JFrame {
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
@@ -295,40 +343,37 @@ public class FormLancamento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnLimpar)
-                        .addGap(55, 55, 55)
-                        .addComponent(btnVoltar)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 762, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(329, 329, 329)
-                                .addComponent(jLabel12))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(131, 131, 131)
-                                .addComponent(btnSalvar)
-                                .addGap(78, 78, 78)
-                                .addComponent(btnAlterar)
-                                .addGap(79, 79, 79)
-                                .addComponent(btnPesquisar)
-                                .addGap(79, 79, 79)
-                                .addComponent(btnExcluir)))
+                        .addGap(131, 131, 131)
+                        .addComponent(btnSalvar)
+                        .addGap(78, 78, 78)
+                        .addComponent(btnAlterar)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnPesquisar)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnExcluir)
                         .addGap(0, 156, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(PnlLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLimpar)
+                        .addGap(55, 55, 55)
+                        .addComponent(btnVoltar)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 762, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(344, 344, 344)
+                .addComponent(jLabel12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,21 +382,21 @@ public class FormLancamento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PnlLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(PnlLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -387,6 +432,64 @@ public class FormLancamento extends javax.swing.JFrame {
                 System.exit(0);
              } 
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void cmbGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGrupoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGrupoActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        
+       double altMax = Double.parseDouble(txtAltitudeMax.getText());
+       double veloMax = Double.parseDouble(txtVelocidadeMax.getText());
+       double tempProp = Double.parseDouble(txtTempoPropulsao.getText());
+       double picoAcel = Double.parseDouble(txtPicoAceleracao.getText());
+       double acelMed = Double.parseDouble(txtAceleracaoMedia.getText());
+       double tempQueda = Double.parseDouble(txtTempoQueda.getText());
+       double tempEjec = Double.parseDouble(txtTempoEjecao.getText());
+       double altEjec = Double.parseDouble(txtAltitudeEjecao.getText());
+       double taxDesc = Double.parseDouble(txtTaxaDescida.getText());
+       double duraVoo = Double.parseDouble(txtDuracaoVoo.getText());
+       double distAlvo = Double.parseDouble(txtDistanciaAlvo.getText());
+       String data = txtData.getText();
+       String idPre = cmbPre.getSelectedItem().toString();
+       String nomeGrupo = cmbGrupo.getSelectedItem().toString();
+        
+        if(altMax != 0 || veloMax != 0 || tempProp != 0 || picoAcel != 0 || acelMed != 0 || tempQueda != 0 || tempEjec != 0
+        || altEjec != 0 || taxDesc != 0 || duraVoo != 0 || distAlvo != 0 || !data.equals("") || !idPre.equals("") || !nomeGrupo.equals("")){
+             try {
+                 
+                GrupoDAO daoGrupo = new GrupoDAO();
+                Grupo grupo;
+                grupo = daoGrupo.pegarGrupoPeloNome(nomeGrupo);
+                
+                PreLancamentoDAO daoPre = new PreLancamentoDAO();
+                PreLancamento pre;
+                pre = daoPre.pegarPrePeloId(idPre);
+                
+                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new java.sql.Date(f.parse(data).getTime());
+                
+                Lancamento lancamento = new Lancamento(0, altMax, veloMax, tempProp, picoAcel, acelMed, tempQueda, tempEjec, altEjec,
+                       taxDesc, duraVoo, distAlvo, date, pre, grupo, null);
+                LancamentoDAO dao = new LancamentoDAO();
+                boolean insert = dao.cadastrarLancamento(lancamento);
+                if(insert){
+                     JOptionPane.showMessageDialog(null, "\nRegistro inserido com sucesso!");           
+                     limpar();
+                     atualizarTabela();     
+                }else            
+                     JOptionPane.showMessageDialog(null, "\nFalha ao inserir registro!");     
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex + "\nTodos os campos prescisam ser preenchidos com valores validos!");
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(null, ex + "\nTodos os campos prescisam ser preenchidos com valores validos!");
+           }
+        }
+        else{
+           JOptionPane.showMessageDialog(null, "Todos os campos prescisam ser preenchidos!");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
  
     private void limpar() {
        txtAceleracaoMedia.setText("");
@@ -447,14 +550,15 @@ public class FormLancamento extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cmbGrupo;
+    private javax.swing.JComboBox<String> cmbPre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -469,6 +573,7 @@ public class FormLancamento extends javax.swing.JFrame {
     private javax.swing.JTextField txtAceleracaoMedia;
     private javax.swing.JTextField txtAltitudeEjecao;
     private javax.swing.JTextField txtAltitudeMax;
+    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtDistanciaAlvo;
     private javax.swing.JTextField txtDuracaoVoo;
     private javax.swing.JTextField txtPicoAceleracao;

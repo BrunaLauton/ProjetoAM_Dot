@@ -86,5 +86,41 @@ public class PreLancamentoDAO {
         }
         return false;
     }
+
+    public List pegarPreLancamentos() {
+        List myList = new ArrayList();
+        
+        try {
+            sql = "select * from prelancamento where login = ?";
+            p = conexao.prepareStatement(sql);
+            LoginDAO dao = new LoginDAO();
+            p.setInt(1, dao.acharLogado().getIdLogin());
+            rs = p.executeQuery();             
+            while(rs.next()){
+                myList.add(rs.getInt("idprelancamento"));
+            }
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
+        return myList;
+    }
+
+    public PreLancamento pegarPrePeloId(String idPre) throws SQLException {
+        try {
+            sql = "select * from PreLancamento where idprelancamento = ? and login = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql); 
+            p.setString(1, idPre);
+            LoginDAO dao = new LoginDAO();
+            p.setInt(2, dao.acharLogado().getIdLogin());
+            rs = p.executeQuery();
+            rs.next();    
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+        PreLancamento preLancamento = new PreLancamento(rs.getInt("IDPRELANCAMENTO"), rs.getInt("distanciaAlvo"), rs.getInt("anguloLancamento"), rs.getInt("velocidadeVento"), rs.getInt("pesoFoguete"));
+        return preLancamento;
+    }
     
 }

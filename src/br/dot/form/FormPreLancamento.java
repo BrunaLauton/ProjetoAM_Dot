@@ -312,8 +312,11 @@ public class FormPreLancamento extends javax.swing.JFrame {
             PreLancamento preLancamento = new PreLancamento(0, distancia, angulo, velocidade, peso, null);
             PreLancamentoDAO dao = new PreLancamentoDAO();
             boolean insert = dao.cadastrarPreLancamento(preLancamento);
-            if(insert)
-                 JOptionPane.showMessageDialog(null, "\nRegistro inserido com sucesso!");           
+            if(insert){
+                 JOptionPane.showMessageDialog(null, "\nRegistro inserido com sucesso!");
+                 limpar();  
+                 atualizarTabela();
+            }       
             else            
                  JOptionPane.showMessageDialog(null, "\nFalha ao inserir registro!");
         }

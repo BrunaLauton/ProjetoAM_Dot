@@ -35,12 +35,13 @@ public class ComponenteDAO {
     
     public boolean cadastrarComponente(Componente componente){
        try{
-           sql = "insert into COMPONENTES values (id_generator.nextval,?,?,?,?);";
+           sql = "insert into COMPONENTES values (id_generator.nextval,?,?,?,?)";
                 p = conexao.prepareStatement(sql);
                 p.setString(1, componente.getNome());
                 p.setString(2, componente.getRm());
-               //p.setInt(3, componente.getIdGrupo());
-               // p.setString(4, componente.getIdLogin());
+                p.setInt(3, componente.getIdGrupo().getIdGrupo());
+                LoginDAO dao = new LoginDAO();
+                p.setInt(4, dao.acharLogado().getIdLogin());
                 p.execute();
                 return true;
        } 
@@ -56,9 +57,11 @@ public class ComponenteDAO {
        
         List<Componente> lista = null;
        
-        sql = "select idComponentes, nome_componente, rm from COMPONENTES";
+        sql = "select idComponentes, nome_componente, rm from COMPONENTES where login = ?";
         try {
             p = conexao.prepareStatement(sql);
+            LoginDAO dao = new LoginDAO();
+            p.setInt(1, dao.acharLogado().getIdLogin());
             rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
             lista = gerarLista(rs);
         }

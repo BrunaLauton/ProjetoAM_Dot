@@ -348,6 +348,7 @@ public class FormGrupos extends javax.swing.JFrame {
             boolean insert = dao.cadastrarGrupo(grupo);
             if(insert){
                  JOptionPane.showMessageDialog(null, "\nRegistro inserido com sucesso!");  
+                 limpar();
                  atualizarTabela();
             }
             else            
