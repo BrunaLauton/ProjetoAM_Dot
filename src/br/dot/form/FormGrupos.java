@@ -48,7 +48,7 @@ public class FormGrupos extends javax.swing.JFrame {
 
             matriz[k][0] = grupo.getNome();
             matriz[k][1] = grupo.getTurma();
-            matriz[k][2s] = grupo.getQtdLancamentos();
+            matriz[k][2] = Integer.toString(grupo.getQtdLancamentos());
             
             
         }

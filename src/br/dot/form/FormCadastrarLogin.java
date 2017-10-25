@@ -297,7 +297,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Todos os campos prescisam ser preenchidos!");
         }
         else{
-            Login login = new Login(usuario, senha);
+            Login login = new Login(0, usuario, senha, null);
             LoginDAO dao = new LoginDAO();
             
               if(dao.cadastrarLogin(login)){
