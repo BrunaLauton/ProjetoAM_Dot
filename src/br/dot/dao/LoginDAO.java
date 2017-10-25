@@ -6,11 +6,13 @@
 package br.dot.dao;
 
 import br.dot.modelo.Login;
-import br.dot.conexao.Conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,7 +42,6 @@ public class LoginDAO {
             p.setString(1,usuario.getUsuario());
             p.setString(2, usuario.getSenha());
             rs = p.executeQuery();
-            rs.next();
             usuario.setIdLogin(rs.getInt("idLogin"));
             achou = true;
          
@@ -53,6 +54,59 @@ public class LoginDAO {
         return achou;
         
     }
+<<<<<<< HEAD
+    
+    public boolean cadastrarLogin(Login login){
+        try {
+               
+                sql = "insert into LOGIN values (id_generator.nextval,?, ?)";
+                p = conexao.prepareStatement(sql);
+                p.setString(1, login.getUsuario());
+                p.setString(2, login.getSenha());
+                p.execute();
+                return true;
+                
+           
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return false;
+    }
+    
+        public List<Login> listarLogin(){
+       
+        List<Login> lista = null;
+       
+        sql = "select usuario, senha from LOGIN";
+        try {
+            p = conexao.prepareStatement(sql);
+            rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
+            lista = gerarLista(rs);
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os clientes\n"+e);
+        }
+        return lista;
+
+    }
+        
+        private List<Login> gerarLista(ResultSet rs) throws SQLException {
+        List<Login> lista = new ArrayList();
+        String usuario, senha;
+     
+        while(rs.next()) {
+            usuario = rs.getString("usuario");
+            senha = rs.getString("senha");
+          
+            lista.add(new Login(usuario, senha));            
+        }
+        return lista;
+
+    }
+
+}
+=======
 
     public void updateLoginON(Login usuario) {
         try {
@@ -88,3 +142,4 @@ public class LoginDAO {
         return login;
     }
 }
+>>>>>>> 711a4da951f85d66ccb2812555e08f717babb060

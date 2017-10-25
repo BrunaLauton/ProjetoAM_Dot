@@ -6,11 +6,19 @@
 package br.dot.dao;
 
 import br.dot.modelo.Componente;
+<<<<<<< HEAD
+import br.dot.modelo.Grupo;
+import br.dot.modelo.Login;
+import br.fiap.conexao.Conexao;
+=======
 import br.dot.conexao.Conexao;
+>>>>>>> 711a4da951f85d66ccb2812555e08f717babb060
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,6 +52,38 @@ public class ComponenteDAO {
         }
         return false;
        
+    }
+    
+    
+         public List<Componente> listarComponente(){
+       
+        List<Componente> lista = null;
+       
+        sql = "select nome_componente, rm from COMPONENTES";
+        try {
+            p = conexao.prepareStatement(sql);
+            rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
+            lista = gerarLista(rs);
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os clientes\n"+e);
+        }
+        return lista;
+
+    }
+        
+        private List<Componente> gerarLista(ResultSet rs) throws SQLException {
+        List<Componente> lista = new ArrayList();
+        String nome, rm;
+     
+        while(rs.next()) {
+            nome = rs.getString("nome_componente");
+            rm = rs.getString("rm");
+          
+            lista.add(new Componente(nome, rm));            
+        }
+        return lista;
+
     }
 
 }
