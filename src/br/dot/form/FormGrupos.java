@@ -32,7 +32,7 @@ public class FormGrupos extends javax.swing.JFrame {
     private void atualizarTabela() {
 
         GrupoDAO dao = new GrupoDAO();
-        List<Componente> lista = dao.listarGrupo();
+        List<Grupo> lista = dao.listarGrupo();
         gerarMatriz(lista);
         TableModel modelo = new DefaultTableModel(matriz, 
                 new String[]{"Nome do Grupo", "Turma", "Quantidade de Lançamentos"});
@@ -48,7 +48,7 @@ public class FormGrupos extends javax.swing.JFrame {
 
             matriz[k][0] = grupo.getNome();
             matriz[k][1] = grupo.getTurma();
-            matriz[k][2s] = grupo.getQtdLancamentos();
+            matriz[k][2] = Integer.toString(grupo.getQtdLancamentos());
             
             
         }

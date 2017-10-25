@@ -28,6 +28,14 @@ public class Grupo {
         this.login = login;
     }
 
+    public Grupo(String nome, String turma, int qtdLancamentos) {
+        this.nome = nome;
+        this.turma = turma;
+        this.qtdLancamentos = qtdLancamentos;
+    }
+    
+    
+
     public int getIdGrupo() {
         return idGrupo;
     }

@@ -6,13 +6,10 @@
 package br.dot.dao;
 
 import br.dot.modelo.Componente;
-<<<<<<< HEAD
 import br.dot.modelo.Grupo;
 import br.dot.modelo.Login;
-import br.fiap.conexao.Conexao;
-=======
 import br.dot.conexao.Conexao;
->>>>>>> 711a4da951f85d66ccb2812555e08f717babb060
+import br.dot.conexao.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

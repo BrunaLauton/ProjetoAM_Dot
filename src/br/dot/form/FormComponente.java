@@ -357,16 +357,15 @@ public class FormComponente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-<<<<<<< HEAD
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         limpar();
         atualizarTabela();
     }//GEN-LAST:event_formWindowOpened
-=======
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
->>>>>>> 711a4da951f85d66ccb2812555e08f717babb060
+
     
     private void limpar() {
         txtNome.setText("");

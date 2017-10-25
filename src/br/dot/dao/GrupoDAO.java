@@ -56,9 +56,9 @@ public class GrupoDAO {
         return status;
     }
      
-     public List<Componente> listarGrupo(){
+     public List<Grupo> listarGrupo(){
        
-        List<Componente> lista = null;
+        List<Grupo> lista = null;
        
         sql = "select nome, turma, qtdLancamento from GRUPO";
         try {
@@ -73,7 +73,7 @@ public class GrupoDAO {
 
     }
         
-        private List<Componente> gerarLista(ResultSet rs) throws SQLException {
+        private List<Grupo> gerarLista(ResultSet rs) throws SQLException {
         List<Componente> lista = new ArrayList();
         String nome, rm, qtdLancamento;
      
@@ -82,7 +82,7 @@ public class GrupoDAO {
             rm = rs.getString("rm");
             qtdLancamento = rs.getString("rm");
           
-            lista.add(new Componente(nome, rm));            
+            lista.add(new Grupo);            
         }
         return lista;
 
