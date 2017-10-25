@@ -5,6 +5,7 @@
  */
 package br.dot.form;
 
+import br.dot.dao.LoginDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -70,7 +71,7 @@ public class FormLancamento extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
@@ -331,6 +332,8 @@ public class FormLancamento extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja finalizar o programa?");
         if(resposta == JOptionPane.YES_OPTION) {
+            LoginDAO login = new LoginDAO();
+            login.updateLoginOFF();
             System.exit(0);
         } 
     }//GEN-LAST:event_btnSairActionPerformed
@@ -338,7 +341,9 @@ public class FormLancamento extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
          int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja fechar e sair do programa?");
             if(resposta == JOptionPane.YES_OPTION) {
-                 System.exit(0);
+                LoginDAO login = new LoginDAO();
+                login.updateLoginOFF();
+                System.exit(0);
              } 
     }//GEN-LAST:event_btnExitActionPerformed
  

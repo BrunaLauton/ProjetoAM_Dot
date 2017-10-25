@@ -5,6 +5,7 @@
  */
 package br.dot.dao;
 
+import br.dot.conexao.Conexao;
 import br.dot.modelo.Login;
 import br.dot.conexao.Conexao;
 import java.sql.Connection;
@@ -59,15 +60,12 @@ public class LoginDAO {
     
     public boolean cadastrarLogin(Login login){
         try {
-               
-                sql = "insert into LOGIN values (id_generator.nextval,?, ?)";
-                p = conexao.prepareStatement(sql);
-                p.setString(1, login.getUsuario());
-                p.setString(2, login.getSenha());
-                p.execute();
-                return true;
-                
-           
+            sql = "insert into LOGIN values (id_generator.nextval,?, ?)";
+            p = conexao.prepareStatement(sql);
+            p.setString(1, login.getUsuario());
+            p.setString(2, login.getSenha());
+            p.execute();
+            return true;
         }
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -75,7 +73,7 @@ public class LoginDAO {
         return false;
     }
     
-        public List<Login> listarLogin(){
+    public List<Login> listarLogin(){
        
         List<Login> lista = null;
        
@@ -92,22 +90,20 @@ public class LoginDAO {
 
     }
         
-        private List<Login> gerarLista(ResultSet rs) throws SQLException {
+    private List<Login> gerarLista(ResultSet rs) throws SQLException {
         List<Login> lista = new ArrayList();
-        String idLogin,usuario, senha;
-     
+        String usuario, senha;
+        int idUsuario;
+        
         while(rs.next()) {
-            idLogin = rs.getString("idLogin");
+            idUsuario = Integer.parseInt(rs.getString("idusuario"));
             usuario = rs.getString("usuario");
             senha = rs.getString("senha");
           
-            lista.add(new Login(idLogin, usuario, senha));            
+            lista.add(new Login(idUsuario ,usuario, senha, "N"));            
         }
         return lista;
-
     }
-
-}
 
     public void updateLoginON(Login usuario) {
         try {

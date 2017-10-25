@@ -214,6 +214,8 @@ public class FormLogin extends javax.swing.JFrame {
 
       int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja finalizar o programa?");
         if(resposta == JOptionPane.YES_OPTION) {
+            LoginDAO login = new LoginDAO();
+            login.updateLoginOFF();
             System.exit(0);
         }   
     }//GEN-LAST:event_btnFinalizarActionPerformed
@@ -262,7 +264,9 @@ public class FormLogin extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja fechar e sair do programa?");
             if(resposta == JOptionPane.YES_OPTION) {
-                 System.exit(0);
+                LoginDAO login = new LoginDAO();
+                login.updateLoginOFF();
+                System.exit(0);
              } 
     }//GEN-LAST:event_btnExitActionPerformed
 

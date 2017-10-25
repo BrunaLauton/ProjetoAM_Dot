@@ -82,20 +82,14 @@ public class FormComponente extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-
-<<<<<<< HEAD
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
-=======
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setUndecorated(true);
->>>>>>> 711a4da951f85d66ccb2812555e08f717babb060
-
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        setUndecorated(true);        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
         btnExit.setBackground(new java.awt.Color(0, 0, 0));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/exit.png"))); // NOI18N
