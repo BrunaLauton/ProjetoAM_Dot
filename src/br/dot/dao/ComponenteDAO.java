@@ -6,7 +6,6 @@
 package br.dot.dao;
 
 import br.dot.modelo.Componente;
-
 import br.dot.modelo.Grupo;
 import br.dot.modelo.Login;
 import br.dot.conexao.Conexao;

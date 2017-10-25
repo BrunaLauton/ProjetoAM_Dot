@@ -22,6 +22,12 @@ public class Login {
         this.senha = senha;
         this.logado = logado;
     }
+
+    public Login(int idLogin, String usuario, String senha) {
+        this.idLogin = idLogin;
+        this.usuario = usuario;
+        this.senha = senha;
+    } 
     
     public int getIdLogin() {
         return idLogin;

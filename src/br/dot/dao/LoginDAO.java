@@ -7,6 +7,7 @@ package br.dot.dao;
 
 import br.dot.conexao.Conexao;
 import br.dot.modelo.Login;
+import br.dot.conexao.Conexao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -43,6 +44,7 @@ public class LoginDAO {
             p.setString(1,usuario.getUsuario());
             p.setString(2, usuario.getSenha());
             rs = p.executeQuery();
+            rs.next();
             usuario.setIdLogin(rs.getInt("idLogin"));
             achou = true;
          
@@ -75,14 +77,14 @@ public class LoginDAO {
        
         List<Login> lista = null;
        
-        sql = "select usuario, senha from LOGIN";
+        sql = "select * from LOGIN";
         try {
             p = conexao.prepareStatement(sql);
             rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
             lista = gerarLista(rs);
         }
         catch(SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os clientes\n"+e);
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os logins cadastrados!\n"+e);
         }
         return lista;
 

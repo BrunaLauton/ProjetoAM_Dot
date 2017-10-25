@@ -40,13 +40,15 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     }
     
     private void gerarMatriz(List<Login> lista) {
-        matriz = new String[lista.size()][6];
+        matriz = new String[lista.size()][3];
         Login login;
         for (int k = 0; k < lista.size(); k++) {
             login = lista.get(k);
 
-            matriz[k][0] = login.getUsuario();
-            matriz[k][1] = login.getSenha();
+            matriz[k][0] = Integer.toString(login.getIdLogin());
+            matriz[k][1] = login.getUsuario();
+            matriz[k][2] = login.getSenha();
+            
             
         }
     }

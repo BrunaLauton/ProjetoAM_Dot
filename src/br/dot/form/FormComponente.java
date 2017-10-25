@@ -355,6 +355,7 @@ public class FormComponente extends javax.swing.JFrame {
         limpar();
         atualizarTabela();
     }//GEN-LAST:event_formWindowOpened
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed

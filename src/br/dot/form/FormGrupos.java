@@ -32,7 +32,7 @@ public class FormGrupos extends javax.swing.JFrame {
     private void atualizarTabela() {
 
         GrupoDAO dao = new GrupoDAO();
-        List<Componente> lista = dao.listarGrupo();
+        List<Grupo> lista = dao.listarGrupo();
         gerarMatriz(lista);
         TableModel modelo = new DefaultTableModel(matriz, 
                 new String[]{"Nome do Grupo", "Turma", "Quantidade de Lançamentos"});
