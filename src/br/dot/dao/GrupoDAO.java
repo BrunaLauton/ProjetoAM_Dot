@@ -203,4 +203,40 @@ public class GrupoDAO {
         }
         return false;
     }
+
+    public List pegarGrupos() {
+        List myList = new ArrayList();
+        
+        try {
+            sql = "select * from GRUPO where login = ?";
+            p = conexao.prepareStatement(sql);
+            LoginDAO dao = new LoginDAO();
+            p.setInt(1, dao.acharLogado().getIdLogin());
+            rs = p.executeQuery();             
+            while(rs.next()){
+                myList.add(rs.getString("nome"));
+            }
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
+        return myList;
+    }
+
+    public Grupo pegarGrupoPeloNome(String nomeGrupo) throws SQLException {
+        try {
+            sql = "select * from GRUPO where nome = ? and login = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql); 
+            p.setString(1, nomeGrupo);
+            LoginDAO dao = new LoginDAO();
+            p.setInt(2, dao.acharLogado().getIdLogin());
+            rs = p.executeQuery();
+            rs.next();    
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+        Grupo grupo = new Grupo(rs.getInt("IDGRUPO"), rs.getString("NOME"), rs.getString("TURMA"), rs.getInt("QTDLANCAMENTO"));
+        return grupo;
+    }
 }

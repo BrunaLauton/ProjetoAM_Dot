@@ -74,4 +74,8 @@ public class LancamentoDAO {
         return lista;
 
     }
+
+    public boolean cadastrarLancamento(Lancamento lancamento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -6,11 +6,15 @@
 package br.dot.form;
 
 import br.dot.dao.ComponenteDAO;
+import br.dot.dao.GrupoDAO;
 import br.dot.dao.LoginDAO;
 import br.dot.modelo.Componente;
 import br.dot.modelo.Grupo;
 import br.dot.modelo.Login;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -29,11 +33,11 @@ public class FormComponente extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
          
-        Form2DAO dao = new Form2DAO();
-        List myList = dao.pegarLaboratorios();
+        GrupoDAO dao = new GrupoDAO();
+        List myList = dao.pegarGrupos();
         
         for(Object i: myList){
-            labFld.addItem((String) i);
+            cmbGrupo.addItem((String) i);
         }
     }
     
@@ -89,14 +93,16 @@ public class FormComponente extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setUndecorated(true);        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
         btnExit.setBackground(new java.awt.Color(0, 0, 0));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/exit.png"))); // NOI18N
@@ -141,6 +147,11 @@ public class FormComponente extends javax.swing.JFrame {
         });
 
         cmbGrupo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cmbGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGrupoActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         jLabel9.setText("Grupo:");
@@ -345,17 +356,28 @@ public class FormComponente extends javax.swing.JFrame {
        
         String nome = txtNome.getText();
         String rm = txtRM.getText();
-        Grupo grupo = (Grupo)cmbGrupo.getSelectedItem();
+        String nomeGrupo = cmbGrupo.getSelectedItem().toString();
         
-        if(nome.equals("") || rm.equals("") || grupo.equals("")){
+        if(nome.equals("") || rm.equals("") || nomeGrupo.equals("")){
             JOptionPane.showMessageDialog(null, "Todos os campos prescisam ser preenchidos!");
         }
         else{
-            Componente componente = new Componente(nome, grupo, rm);
-            ComponenteDAO dao = new ComponenteDAO();
-            limpar();
-            atualizarTabela();
-            
+            try {
+                GrupoDAO daoGrupo = new GrupoDAO();
+                Grupo grupo;
+                grupo = daoGrupo.pegarGrupoPeloNome(nomeGrupo);
+                Componente componente = new Componente(0, nome, grupo, rm, null);
+                ComponenteDAO dao = new ComponenteDAO();
+                boolean insert = dao.cadastrarComponente(componente);
+                if(insert){
+                     JOptionPane.showMessageDialog(null, "\nRegistro inserido com sucesso!");           
+                     limpar();
+                     atualizarTabela();     
+                }else            
+                     JOptionPane.showMessageDialog(null, "\nFalha ao inserir registro!");     
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex + "\nTodos os campos prescisam ser preenchidos com valores validos!");
+            }  
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -367,6 +389,10 @@ public class FormComponente extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void cmbGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGrupoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGrupoActionPerformed
 
     
     private void limpar() {

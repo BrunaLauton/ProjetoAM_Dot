@@ -7,8 +7,11 @@ package br.dot.form;
 
 import br.dot.dao.LoginDAO;
 import br.dot.modelo.Login;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -123,6 +126,11 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         jLabel1.setText("Usuário");
 
         txtUsuario.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         jLabel8.setText("Senha:");
@@ -175,12 +183,27 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnPesquisat.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnPesquisat.setText("Pesquisar");
+        btnPesquisat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisatActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         tabelaLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         tabelaLogin.setModel(new javax.swing.table.DefaultTableModel(
@@ -302,11 +325,15 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
         else{
             Login login = new Login(0, usuario, senha, null);
             LoginDAO dao = new LoginDAO();
-            
-              if(dao.cadastrarLogin(login)){
+        if(dao.cadastrarLogin(login)){
             JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
             limpar();
             atualizarTabela();
+            if(!dao.acharLogadoBoolean()){
+                FormLogin flogin = new FormLogin();
+                dispose();
+                flogin.setVisible(true);
+            }
         }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -342,6 +369,50 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaActionPerformed
+
+    private void btnPesquisatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisatActionPerformed
+        // TODO add your handling code here:
+        String nome = txtUsuario.getText();
+        LoginDAO dao = new LoginDAO();
+        try {
+            Login login = dao.PesquisarLoginPeloNome(nome);
+            txtUsuario.setText(login.getUsuario());
+            txtSenha.setText(login.getSenha());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuarío!\n"+ex);
+        }
+    }//GEN-LAST:event_btnPesquisatActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        String nome = txtUsuario.getText();
+        LoginDAO dao = new LoginDAO();
+        boolean result = dao.ExcluirLoginPeloNome(nome);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Usuarío excluido com sucesso!\n");
+        }        
+            JOptionPane.showMessageDialog(null, "Falha ao excluir usuarío!\n");
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nome = txtUsuario.getText();
+        String senha =  new String(txtSenha.getPassword());
+        LoginDAO dao = new LoginDAO();
+        boolean result = dao.AlterarLoginPeloNome(nome, senha);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Usuarío alterado com sucesso!\n");
+        }        
+        else
+            JOptionPane.showMessageDialog(null, "Falha ao alterar usuarío!\n");
+    }//GEN-LAST:event_btnAlterarActionPerformed
     
     private void limpar() {
         txtUsuario.setText("");
@@ -354,8 +425,8 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
     }
     
      private void desativarBotao(){
-        LoginDAO login = new LoginDAO();
-        if(!login.acharLogadoBoolean()){
+        LoginDAO dao = new LoginDAO();
+        if(!dao.acharLogadoBoolean()){
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
             btnPesquisat.setEnabled(false);
