@@ -204,6 +204,11 @@ public class FormComponente extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnPesquisat.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnPesquisat.setText("Pesquisar");
@@ -409,6 +414,10 @@ public class FormComponente extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_tabelaComponentesMouseClicked
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     
     private void limpar() {

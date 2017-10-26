@@ -287,12 +287,27 @@ public class FormLancamento extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel12.setText("Lançamentos");
@@ -521,6 +536,78 @@ public class FormLancamento extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         atualizarTabela();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here: 
+        double alt = Double.parseDouble(txtAltitudeMax.getText());
+        LancamentoDAO dao = new LancamentoDAO();
+        boolean result = dao.ExcluirLancamentoPelaAlt(alt);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Lancamento excluido com sucesso!\n");
+        }        
+        else
+            JOptionPane.showMessageDialog(null, "Falha ao excluir Lancamento!\n");
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:
+        double alt = Double.parseDouble(txtAltitudeMax.getText());
+        LancamentoDAO dao = new LancamentoDAO();
+        
+         try {
+            Lancamento lancamento = dao.PesquisarLancamentoPelaAlt(alt);
+            txtAltitudeMax.setText(Double.toString(lancamento.getAltitudeMax()));
+            txtVelocidadeMax.setText(Double.toString(lancamento.getVelocidadeMax()));
+            txtTempoPropulsao.setText(Double.toString(lancamento.getTempoPropulsao()));
+            txtPicoAceleracao.setText(Double.toString(lancamento.getPicoAceleracao()));
+            txtAceleracaoMedia.setText(Double.toString(lancamento.getAceleracaoMedia()));
+            txtTempoQueda.setText(Double.toString(lancamento.getTempoQueda()));
+            txtTempoEjecao.setText(Double.toString(lancamento.getTempoEjecao()));
+            txtAltitudeEjecao.setText(Double.toString(lancamento.getAltitudeEjecao()));
+            txtTaxaDescida.setText(Double.toString(lancamento.getTaxaDescida()));
+            txtDuracaoVoo.setText(Double.toString(lancamento.getDuracaoVoo()));
+            txtDistanciaAlvo.setText(Double.toString(lancamento.getDistanciaDoAlvo()));
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String data = df.format(lancamento.getData());
+            txtData.setText(data);
+         } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao pesquisar PreLancameto!\n"+ex);
+         }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        try {
+        double altMax = Double.parseDouble(txtAltitudeMax.getText());
+        double veloMax = Double.parseDouble(txtVelocidadeMax.getText());
+        double tempProp = Double.parseDouble(txtTempoPropulsao.getText());
+        double picoAcel = Double.parseDouble(txtPicoAceleracao.getText());
+        double acelMed = Double.parseDouble(txtAceleracaoMedia.getText());
+        double tempQueda = Double.parseDouble(txtTempoQueda.getText());
+        double tempEjec = Double.parseDouble(txtTempoEjecao.getText());
+        double altEjec = Double.parseDouble(txtAltitudeEjecao.getText());
+        double taxDesc = Double.parseDouble(txtTaxaDescida.getText());
+        double duraVoo = Double.parseDouble(txtDuracaoVoo.getText());
+        double distAlvo = Double.parseDouble(txtDistanciaAlvo.getText());
+        String data = txtData.getText();
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new java.sql.Date(f.parse(data).getTime());
+        LancamentoDAO dao = new LancamentoDAO();
+        boolean result = dao.AlterarPreLancamentoPelaAlt(altMax, veloMax, tempProp, picoAcel, acelMed, tempQueda, tempEjec,
+                                                         altEjec, taxDesc, duraVoo, distAlvo, date);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Usuarío alterado com sucesso!\n");
+        }        
+        else
+            JOptionPane.showMessageDialog(null, "Falha ao alterar usuarío!\n");
+        } catch (ParseException ex) {
+             JOptionPane.showMessageDialog(null, "A data não é valida!\n"+ex);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
  
     private void limpar() {
        txtAceleracaoMedia.setText("");

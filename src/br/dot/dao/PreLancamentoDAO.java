@@ -122,5 +122,48 @@ public class PreLancamentoDAO {
         PreLancamento preLancamento = new PreLancamento(rs.getInt("IDPRELANCAMENTO"), rs.getInt("distanciaAlvo"), rs.getInt("anguloLancamento"), rs.getInt("velocidadeVento"), rs.getInt("pesoFoguete"));
         return preLancamento;
     }
+
+    public PreLancamento PesquisarPreLancamentoPelaDist(double dist) throws SQLException {
+        try {
+            sql = "select * from PreLancamento where distanciaalvo = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setDouble(1, dist);
+            rs = p.executeQuery();
+            rs.next(); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuarío!\n"+e);
+        }
+        PreLancamento preLancamento = new PreLancamento(rs.getInt("IDPRELANCAMENTO"), rs.getDouble("DISTANCIAALVO"), rs.getDouble("ANGULOLANCAMENTO"), rs.getDouble("VELOCIDADEVENTO"), rs.getDouble("PESOFOGUETE"));
+        return preLancamento;//To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean ExcluirPreLancamentoPelaDist(double dist) {
+        try {
+            sql = "delete from PreLancamento where distanciaalvo = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setDouble(1, dist);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir usuarío!\n"+e);
+        }
+        return false;
+    }
+    
+    public boolean AlterarPreLancamentoPelaDist(double dist, double ang, double vel, double peso) {
+        try {
+            sql = "update PreLancamento set ANGULOLANCAMENTO = ?, VELOCIDADEVENTO = ?, PESOFOGUETE = ? where distanciaalvo = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setDouble(1, ang);
+            p.setDouble(2, vel);
+            p.setDouble(3, peso);
+            p.setDouble(4, dist);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar PreLancamento!\n"+e);
+        }
+        return false;
+    }
     
 }

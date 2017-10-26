@@ -11,8 +11,11 @@ import br.dot.dao.PreLancamentoDAO;
 import br.dot.modelo.Lancamento;
 import br.dot.modelo.Login;
 import br.dot.modelo.PreLancamento;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -182,12 +185,27 @@ public class FormPreLancamento extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -353,6 +371,52 @@ public class FormPreLancamento extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         atualizarTabela();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:
+        double dist = Double.parseDouble(txtDistanciaAlvo.getText());
+        PreLancamentoDAO dao = new PreLancamentoDAO();
+        try {
+            PreLancamento preLancamento = dao.PesquisarPreLancamentoPelaDist(dist);
+            txtDistanciaAlvo.setText(Double.toString(preLancamento.getDistanciaAlvo()));
+            txtAngulo.setText(Double.toString(preLancamento.getAnguloLanca()));
+            txtVelocidade.setText(Double.toString(preLancamento.getVelocidadeVento()));
+            txtPesoFoguete.setText(Double.toString(preLancamento.getPesoFoguete()));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar PreLancameto!\n"+ex);
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        double dist = Double.parseDouble(txtDistanciaAlvo.getText());
+        PreLancamentoDAO dao = new PreLancamentoDAO();
+        boolean result = dao.ExcluirPreLancamentoPelaDist(dist);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "PreLancamento excluido com sucesso!\n");
+        }        
+        else
+            JOptionPane.showMessageDialog(null, "Falha ao excluir PreLancamento!\n");
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        double dist = Double.parseDouble(txtDistanciaAlvo.getText());
+        double ang = Double.parseDouble(txtAngulo.getText());
+        double velo = Double.parseDouble(txtVelocidade.getText());
+        double peso = Double.parseDouble(txtPesoFoguete.getText());
+        PreLancamentoDAO dao = new PreLancamentoDAO();
+        boolean result = dao.AlterarPreLancamentoPelaDist(dist, ang, velo, peso);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Usuarío alterado com sucesso!\n");
+        }        
+        else
+            JOptionPane.showMessageDialog(null, "Falha ao alterar usuarío!\n");
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void limpar() {
        txtPesoFoguete.setText("");

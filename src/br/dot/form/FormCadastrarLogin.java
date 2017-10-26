@@ -402,6 +402,7 @@ public class FormCadastrarLogin extends javax.swing.JFrame {
             atualizarTabela();
             JOptionPane.showMessageDialog(null, "Usuarío excluido com sucesso!\n");
         }        
+        else
             JOptionPane.showMessageDialog(null, "Falha ao excluir usuarío!\n");
     }//GEN-LAST:event_btnExcluirActionPerformed
 
