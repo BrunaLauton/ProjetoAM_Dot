@@ -431,8 +431,11 @@ public class FormComponente extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaComponentesMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+<<<<<<< HEAD
 
        
+=======
+>>>>>>> db3970e026b45aedf800b22e90b9e538dd0bc8ee
         String nome =  txtNome.getText();
         String rm =  txtRM.getText();
         //String grupo = (String)cmbGrupo.getSelectedItem();
@@ -459,6 +462,7 @@ public class FormComponente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuarío!\n"+ex);
         }
     }//GEN-LAST:event_btnPesquisatActionPerformed
+<<<<<<< HEAD
 
 
         // TODO add your handling code here:
@@ -466,6 +470,9 @@ public class FormComponente extends javax.swing.JFrame {
 
 
     
+=======
+                                     
+>>>>>>> db3970e026b45aedf800b22e90b9e538dd0bc8ee
     private void limpar() {
         txtNome.setText("");
         txtRM.setText("");
