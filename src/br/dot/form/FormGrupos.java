@@ -10,6 +10,7 @@ import br.dot.dao.GrupoDAO;
 import br.dot.dao.LoginDAO;
 import br.dot.modelo.Componente;
 import br.dot.modelo.Grupo;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -209,12 +210,27 @@ public class FormGrupos extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnPesquisat.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnPesquisat.setText("Pesquisar");
+        btnPesquisat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisatActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -380,6 +396,49 @@ public class FormGrupos extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_tableGruposMouseClicked
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nome =  txtNome.getText();
+        String turma = txtTurma.getText();
+        String qtdLancamento = txtQtdLancamento.getText();
+        GrupoDAO dao = new GrupoDAO();
+        boolean result = dao.alterarGrupo(nome,turma, qtdLancamento);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Grupo alterado com sucesso!\n");
+        }        
+        else{
+            JOptionPane.showMessageDialog(null, "Falha ao alterar o Grupo!\n");
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        String nome = txtNome.getText();
+        GrupoDAO dao = new GrupoDAO();
+        boolean result = dao.excluirGrupo(nome);
+        if(result){
+            JOptionPane.showMessageDialog(null, "Grupo excluido com sucesso!\n");
+            limpar();
+            atualizarTabela();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Falha ao excluir Grupo!\n");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnPesquisatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisatActionPerformed
+        String nome = txtNome.getText();
+        GrupoDAO dao = new GrupoDAO();
+        try {
+            Grupo grupo = dao.pesquisarGrupo(nome);
+            txtNome.setText(grupo.getNome());
+            txtTurma.setText(grupo.getTurma());
+            txtQtdLancamento.setText(Integer.toString(grupo.getQtdLancamentos()));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar o grupo!\n"+ex);
+        }
+    }//GEN-LAST:event_btnPesquisatActionPerformed
 
     private void limpar() {
         txtNome.setText("");

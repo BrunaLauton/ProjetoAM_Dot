@@ -14,8 +14,8 @@ public class Conexao {
     private static Connection connection;
     private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-    private static final String USUARIO = "rm76906";
-    private static final String SENHA = "310898";
+    private static final String USUARIO = "rm76020";
+    private static final String SENHA = "081098";
     
     private Conexao() {}
     

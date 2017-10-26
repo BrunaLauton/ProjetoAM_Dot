@@ -204,9 +204,19 @@ public class FormComponente extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnPesquisat.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnPesquisat.setText("Pesquisar");
+        btnPesquisat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisatActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
@@ -392,7 +402,17 @@ public class FormComponente extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        String nome = txtNome.getText();
+        ComponenteDAO dao = new ComponenteDAO();
+        boolean result = dao.excluirComponente(nome);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Componente excluido com sucesso!\n");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Falha ao excluir Componente!\n");
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void cmbGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGrupoActionPerformed
@@ -409,6 +429,35 @@ public class FormComponente extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_tabelaComponentesMouseClicked
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+       
+        String nome =  txtNome.getText();
+        String rm =  txtRM.getText();
+        //String grupo = (String)cmbGrupo.getSelectedItem();
+        
+        ComponenteDAO dao = new ComponenteDAO();
+        boolean result = dao.alterarComponente(nome, rm);
+        if(result){
+            limpar();
+            atualizarTabela();
+            JOptionPane.showMessageDialog(null, "Componente alterado com sucesso!\n");
+        }        
+        else
+            JOptionPane.showMessageDialog(null, "Falha ao alterar componente!\n");
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnPesquisatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisatActionPerformed
+        String nome = txtNome.getText();
+        ComponenteDAO dao = new ComponenteDAO();
+        try {
+            Componente componente = dao.pesquisarComponente(nome);
+            txtNome.setText(componente.getNome());
+            txtRM.setText(componente.getRm());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuarío!\n"+ex);
+        }
+    }//GEN-LAST:event_btnPesquisatActionPerformed
 
     
     private void limpar() {

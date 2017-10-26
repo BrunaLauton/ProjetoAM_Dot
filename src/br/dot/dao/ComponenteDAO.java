@@ -86,5 +86,48 @@ public class ComponenteDAO {
         return lista;
 
     }
+        
+    public boolean alterarComponente(String nome,String rm/*, String grupo*/) {
+        try {
+            sql = "update COMPONENTES set rm = ? where nome_componente = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(2, nome);
+            p.setString(1, rm);
+            //p.setString(2, grupo);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar componente!\n"+e);
+        }
+        return false;
+    }
+    
+    public boolean excluirComponente(String nome) {
+        try {
+            sql = "delete from COMPONENTES where nome_componente = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(1, nome);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir componente!\n"+e);
+        }
+        return false;
+    }
+    
+    public Componente pesquisarComponente(String nome) throws SQLException {
+        try {
+            sql = "select * from COMPONENTES where nome_componente = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(1, nome);
+            rs = p.executeQuery();
+            rs.next(); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar componente!\n"+e);
+        }
+        Componente componente = new Componente(rs.getString("nome_componente"), rs.getString("rm"));
+        
+        return componente;
+    }
 
 }

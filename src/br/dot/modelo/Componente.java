@@ -31,6 +31,13 @@ public class Componente {
         this.idLogin = idLogin;
     }
 
+    public Componente(String nome, String rm) {
+        this.nome = nome;
+        this.rm = rm;
+    }
+    
+    
+
     public int getIdComponente() {
         return idComponente;
     }

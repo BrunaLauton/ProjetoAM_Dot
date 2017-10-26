@@ -91,101 +91,6 @@ public class GrupoDAO {
 
     }
      
-//     public boolean alterarCliente(Cliente cliente){
-//        boolean status = false;
-//        sql = "update JAVA_CLIENTE set nome = ?, endereco = ?, nascimento = ?, fone = ?, foto = ? where cpf = ?";
-//                try {
-//            p = conexao.prepareStatement(sql);            
-//            p.setString(1, cliente.getNome());
-//            p.setString(2, cliente.getEndereco());
-//            p.setDate(3, cliente.getNascimento());
-//            p.setString(4, cliente.getFone());
-//            p.setString(5, cliente.getCaminho());
-//            p.setString(6, cliente.getCpf());
-//            p.execute();
-//            status = true;
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro ao atualizar dados do cliente no banco\n"+ex);
-//        }
-//        return status;
-//    }
-//     
-//         public Cliente pesquisarCPF(String cpf){
-//        Cliente aux = null;
-//        
-//        sql = "select * from JAVA_CLIENTE where cpf = ?";
-//        
-//        try{
-//            
-//         p = conexao.prepareStatement(sql);
-//         p.setString(1, cpf);
-//         rs = p.executeQuery();
-//         
-//         if(rs.next()){
-//             String nome = rs.getString("nome");
-//             String endereco = rs.getString("endereco");
-//             Date nascimento = rs.getDate("nascimento");
-//             String fone = rs.getString("fone");
-//             String caminho = rs.getString("foto");
-//             aux = new Cliente(cpf, nome, endereco, nascimento, fone, caminho);
-//         }
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        return aux;
-//    }
-//    
-//    public List<Cliente> listarCliente(){
-//       
-//        List<Cliente> lista = null;
-//       
-//        sql = "select * from java_cliente";
-//        try {
-//            p = conexao.prepareStatement(sql);
-//            rs = p.executeQuery(); // rs = ...  quando for select no sql, extrair os dados pesquisados
-//            lista = gerarLista(rs);
-//        }
-//        catch(SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Erro ao pesquisar todos os clientes\n"+e);
-//        }
-//        return lista;
-//
-//    }
-//
-//    
-//    public boolean excluirCliente(String cpf){
-//        boolean status = false;
-//         sql = "delete from java_cliente where cpf = ?";
-//        try {
-//            p = conexao.prepareStatement(sql);    
-//            p.setString(1, cpf);            
-//            p.execute();
-//            status = true;
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro ao excluir dados do cliente no banco\n"+ex);
-//        }
-//        return status;
-//    }
-//     
-//     private List<Cliente> gerarLista(ResultSet rs) throws SQLException {
-//        List<Cliente> lista = new ArrayList();
-//        String cpf, nome, endereco, foto, fone;
-//        Date nascimento;
-//        while(rs.next()) {
-//            cpf = rs.getString("cpf");
-//            nome = rs.getString("nome");
-//            endereco = rs.getString("endereco");
-//            nascimento = rs.getDate("nascimento");
-//            fone = rs.getString("fone");
-//            foto = rs.getString("foto");
-//            lista.add(new Cliente(cpf, nome, endereco, nascimento, fone, foto));            
-//        }
-//        return lista;
-//
-//    }
-
     public boolean cadastrarGrupo(Grupo grupo) {
         try{
            sql = "insert into GRUPO values (id_generator.nextval,?,?,?,?)";
@@ -237,6 +142,49 @@ public class GrupoDAO {
             JOptionPane.showMessageDialog(null,e);
         }
         Grupo grupo = new Grupo(rs.getInt("IDGRUPO"), rs.getString("NOME"), rs.getString("TURMA"), rs.getInt("QTDLANCAMENTO"));
+        return grupo;
+    }
+    
+     public boolean alterarGrupo(String nome,String turma, String qtdLancamento) {
+        try {
+            sql = "update GRUPO set turma = ?, qtdLancamento = ?  where nome = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(3, nome);
+            p.setString(1, turma);
+            p.setString(2, qtdLancamento);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar grupo!\n"+e);
+        }
+        return false;
+    }
+     
+     public boolean excluirGrupo(String nome) {
+        try {
+            sql = "delete from GRUPO where nome = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(1, nome);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir GRUPO!\n"+e);
+        }
+        return false;
+    }
+     
+     public Grupo pesquisarGrupo(String nome) throws SQLException {
+        try {
+            sql = "select * from GRUPO where nome = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setString(1, nome);
+            rs = p.executeQuery();
+            rs.next(); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar Grupo!\n"+e);
+        }
+        Grupo grupo = new Grupo(rs.getString("nome"), rs.getString("turma"), rs.getInt("qtdLancamento"));
+        
         return grupo;
     }
 }
