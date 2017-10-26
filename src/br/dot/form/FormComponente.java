@@ -1,4 +1,4 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,7 @@ package br.dot.form;
 import br.dot.dao.ComponenteDAO;
 import br.dot.dao.GrupoDAO;
 import br.dot.dao.LoginDAO;
+import br.dot.form.FormMenu;
 import br.dot.modelo.Componente;
 import br.dot.modelo.Grupo;
 import br.dot.modelo.Login;
@@ -431,11 +432,6 @@ public class FormComponente extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaComponentesMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-<<<<<<< HEAD
-
-       
-=======
->>>>>>> db3970e026b45aedf800b22e90b9e538dd0bc8ee
         String nome =  txtNome.getText();
         String rm =  txtRM.getText();
         //String grupo = (String)cmbGrupo.getSelectedItem();
@@ -462,17 +458,7 @@ public class FormComponente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuarío!\n"+ex);
         }
     }//GEN-LAST:event_btnPesquisatActionPerformed
-<<<<<<< HEAD
 
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-
-    
-=======
-                                     
->>>>>>> db3970e026b45aedf800b22e90b9e538dd0bc8ee
     private void limpar() {
         txtNome.setText("");
         txtRM.setText("");
