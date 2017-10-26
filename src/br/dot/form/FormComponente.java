@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -431,7 +431,7 @@ public class FormComponente extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaComponentesMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-<<<<<<< HEAD
+
        
         String nome =  txtNome.getText();
         String rm =  txtRM.getText();
@@ -460,11 +460,11 @@ public class FormComponente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPesquisatActionPerformed
 
-=======
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlterarActionPerformed
 
->>>>>>> b9bf93f40ab1b7cf3290eacc0d16a5fd2af48285
+
     
     private void limpar() {
         txtNome.setText("");
