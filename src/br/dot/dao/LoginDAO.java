@@ -59,10 +59,11 @@ public class LoginDAO {
     
     public boolean cadastrarLogin(Login login){
         try {
-            sql = "insert into LOGIN values (id_generator.nextval,?, ?, 'N')";
+            sql = "insert into LOGIN values (id_generator.nextval,?, ?, ?)";
             p = conexao.prepareStatement(sql);
             p.setString(1, login.getUsuario());
-            p.setString(2, login.getSenha());
+            p.setString(2, login.getSenha());            
+            p.setString(3, "N");
             p.execute();
             return true;
         }
@@ -106,9 +107,10 @@ public class LoginDAO {
 
     public void updateLoginON(Login usuario) {
         try {
-            sql = "update LOGIN set logado = 'S' where idlogin = ?"; //MUDAR AQUI
+            sql = "update LOGIN set logado = ? where idlogin = ?"; //MUDAR AQUI
             p = conexao.prepareStatement(sql);
-            p.setInt(1, usuario.getIdLogin());
+            p.setString(1, "S");
+            p.setInt(2, usuario.getIdLogin());
             p.execute();
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao logar usuarío!\n"+ex);
@@ -117,8 +119,9 @@ public class LoginDAO {
 
     public void updateLoginOFF() {
         try {
-            sql = "update LOGIN set logado = 'N'"; //MUDAR AQUI
+            sql = "update LOGIN set logado = ?"; //MUDAR AQUI
             p = conexao.prepareStatement(sql);
+            p.setString(1, "N");
             p.execute();
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao deslogar usuarío!\n"+ex);
@@ -127,8 +130,9 @@ public class LoginDAO {
 
     public Login acharLogado() throws SQLException {
         try {
-            sql = "select * from LOGIN where logado = 'S'"; //MUDAR AQUI
+            sql = "select * from LOGIN where logado = ?"; //MUDAR AQUI
             p = conexao.prepareStatement(sql); 
+            p.setString(1, "S");
             rs = p.executeQuery();
             rs.next();    
         } catch (Exception e) {
@@ -140,8 +144,9 @@ public class LoginDAO {
 
     public boolean acharLogadoBoolean() {
         try {
-            sql = "select * from LOGIN where logado = 'S'"; //MUDAR AQUI
+            sql = "select * from LOGIN where logado = ?"; //MUDAR AQUI
             p = conexao.prepareStatement(sql); 
+            p.setString(1, "S");
             rs = p.executeQuery();
             if(rs.next())
                 return true;

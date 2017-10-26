@@ -103,4 +103,65 @@ public class LancamentoDAO {
         }
         return false;
     }
+
+    public boolean ExcluirLancamentoPelaAlt(double alt) {
+        try {
+            sql = "delete from Lancamento where altitudemax = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setDouble(1, alt);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir usuarío!\n"+e);
+        }
+        return false;
+    }
+
+    public Lancamento PesquisarLancamentoPelaAlt(double alt) throws SQLException {
+        try {
+            sql = "select * from Lancamento where altitudemax = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setDouble(1, alt);
+            rs = p.executeQuery();
+            rs.next(); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar usuarío!\n"+e);
+        }
+        Lancamento lancamento = new Lancamento(rs.getInt("IDLANCAMENTO"), rs.getDouble("ALTITUDEMAX"), rs.getDouble("VELOCIDADEMAX"),
+                                            rs.getDouble("TEMPOPROPULSAO"), rs.getDouble("PICOACELERACAO"), rs.getDouble("ACELERACAOMEDIA"),
+                                            rs.getDouble("TEMPOQUEDA"), rs.getDouble("TEMPOEJECAO"), rs.getDouble("ALTITUDEEJECAO"),
+                                            rs.getDouble("TAXADESCIDA"), rs.getDouble("DURACAOVOO"), rs.getDouble("DISTANCIAALVO"),
+                                            rs.getDate("DATA"));
+        return lancamento;
+    }
+    
+    public boolean AlterarPreLancamentoPelaAlt(double altMax, double veloMax, double tempProp, double picoAcel,
+                                               double acelMed, double tempQueda, double tempEjec, double altEjec,
+                                               double taxDesc, double duraVoo, double distAlvo, Date data) {
+        try {
+            sql = "update Lancamento set VELOCIDADEMAX = ?, TEMPOPROPULSAO = ?"
+                    + ", PICOACELERACAO = ?, ACELERACAOMEDIA = ?, TEMPOQUEDA = ?, TEMPOEJECAO = ?"
+                    + ", ALTITUDEEJECAO = ?, TAXADESCIDA = ?, DURACAOVOO = ?, DISTANCIAALVO = ?, DATA = ?"
+                + " where ALTITUDEMAX = ?"; //MUDAR AQUI
+            p = conexao.prepareStatement(sql);
+            p.setDouble(1, veloMax);
+            p.setDouble(2, tempProp);
+            p.setDouble(3, picoAcel);
+            p.setDouble(4, acelMed);
+            p.setDouble(5, tempQueda);
+            p.setDouble(6, tempEjec);
+            p.setDouble(7, altEjec);
+            p.setDouble(8, taxDesc);
+            p.setDouble(9, duraVoo);
+            p.setDouble(10, distAlvo);
+            p.setDate(11, data);
+            p.setDouble(12, altMax);
+            p.execute();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar PreLancamento!\n"+e);
+        }
+        return false;
+    }
+
 }
